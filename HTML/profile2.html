@@ -1,0 +1,162 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/public/css/profile.css">
+        <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div class="profile-body1">
+            <div class="sidebar-1">
+                <div class="sidebar-items">
+                    <div class="icon-text profile-container">
+                        <div class=""><a href=""><img class="avatar" src="/public/imgs/vilgax.png" alt="">
+                                <div class=""><span class="span-text-nav">Slidin'</span></div>
+                            </a></div>
+                    </div>
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+                        <div class=""><span class="span-text-nav">Home</span></div>
+                        </a>
+                    </div>
+
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                            <span class="span-text-nav">Search</span>
+                        </div>
+                    </div>
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-circle-plus"></i> </div>
+                        <div class=""><span class="span-text-nav">Create</span></div>
+                        </a>
+                    </div>
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-comment"></i> </div>
+                        <div class=""><span class="span-text-nav">Chat</span></div>
+                        </a>
+                    </div>
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-heart"></i></div>
+                        <div class=""><span class="span-text-nav">Notifications</span></div>
+                        </a>
+                    </div>
+
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-gear"></i></div>
+                        <div class=""><span class="span-text-nav">Settings</span></div>
+                        </a>
+                    </div>
+                    <div class="icon-text profile-container">
+                        <div class=""><a href=""><img class="avatar" src="/public/imgs/vilgax.png" alt=""></div>
+                        <div class=""><span class="span-text-nav">Profile</span></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-2" id="sidebar2">
+                <!-- Additional HTML content for sidebar 2 -->
+                <div class="sidebar-items">
+                    <div class="icon-text profile-container">
+                        <div class=""><a href=""><img class="avatar" src="/public/imgs/vilgax.png" alt="">
+                            </a></div>
+                    </div>
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+                        </a>
+                    </div>
+
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-circle-plus"></i> </div>
+                        </a>
+                    </div>
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-comment"></i> </div>
+                        </a>
+                    </div>
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-heart"></i></div>
+                        </a>
+                    </div>
+
+                    <div class="icon-text">
+                        <div class=""><a href=""><i class="fa fa-gear"></i></div>
+                        </a>
+                    </div>
+                    <div class="icon-text profile-container">
+                        <div class=""><a href=""><img class="avatar" src="/public/imgs/vilgax.png" alt=""></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="search-container" id="s-c" style="display: none;">
+                <h2>Search</h2>
+                <form action="/profile" method="post" enctype="multipart/form-data" id="searchForm">
+                    <div class="search-input-container">
+                        <input type="text" id="search" placeholder="&#x1F50E;&#xFE0E; Search.." name="value"
+                            oninput="toggleClearButton()">
+                    </div>
+                </form>
+                <div class="search-results">
+                    <!-- Placeholder content for search results -->
+                    <div class="card">
+                        <div class="card-img">
+                            <img id="search-profilepics" src="/public/imgs/vilgax.png" alt="Profile Pic">
+                        </div>
+                        <div class="card-details">
+                            <p class="username">Username</p>
+                            <button class="add-friend-btn">Add Friend</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-body">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti, unde ab. Vel, optio facere earum debitis, qui veritatis rerum a perferendis blanditiis ratione libero in officiis inventore itaque laudantium quibusdam dicta repudiandae perspiciatis? Aliquid, eligendi? Vitae, commodi, consectetur voluptatum sint quos quidem minima neque eos illo cum saepe non hic aliquid pariatur aperiam illum aspernatur quae quaerat accusamus, laborum temporibus. Sapiente, excepturi? Quod error laborum accusamus cum minus rerum dolorem magnam saepe dolorum tempore. Error nostrum officia omnis libero, recusandae aut rem dolore non voluptas natus minus fugiat suscipit, et unde placeat harum iusto quisquam voluptates aliquam quasi odio eum. In itaque tempore accusantium voluptate corporis sint, dolorum molestias veniam est facilis cumque voluptas, facere ipsum numquam rem modi! Odit nesciunt voluptatem, veniam deserunt, vel optio sit sint aperiam quia voluptate, quas fuga porro ad sunt. Nostrum quod aut, non illo quisquam, quidem, vitae ullam nobis perferendis laborum quaerat cum nam ipsam ad quis commodi voluptate itaque soluta atque pariatur et in magni. Temporibus, perspiciatis. Esse ratione suscipit molestias aperiam. Officia corporis nesciunt illo iusto, maxime esse eligendi id quae autem ullam ratione a praesentium. Unde quod eligendi minus reiciendis similique quasi eos sint minima nesciunt fuga a at distinctio laboriosam aperiam nemo dolorum eaque impedit architecto, sapiente modi, explicabo, officia id quia voluptatum! Placeat, exercita.</p>
+            </div>
+
+        </div>
+        <script>
+            function toggleSidebar() {
+                // Hide sidebar 1
+                var sidebar1 = document.querySelector('.sidebar-1');
+                if (sidebar1.style.display === 'none') {
+                    sidebar1.style.display = 'block';
+                    var sc = document.getElementById('s-c');
+                    sc.style.display = 'none';
+                    // Show sidebar 2
+                    var sidebar2 = document.getElementById('sidebar2');
+                    sidebar2.style.display = 'none';
+                } else {
+                    sidebar1.style.display = 'none';
+                    sidebar1.style.display = 'none';
+                    var sc = document.getElementById('s-c');
+                    sc.style.display = 'block';
+
+                    // Show sidebar 2
+                    var sidebar2 = document.getElementById('sidebar2');
+                    sidebar2.style.display = 'block';
+                }
+            }
+        </script>
+    </body>
+
+    </html>

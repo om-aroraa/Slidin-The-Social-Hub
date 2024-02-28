@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back</title>
+    <link rel="stylesheet" href="/public/css/login.css">
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div class="form-body">
+    <form>
+        <h1>Slidin</h1>
+        <h2>Hey there, Ready to Slide Back In?</h2>
+        <div class="form-group">
+            <input type="text" id="username" name="username" required>
+            <label for="username"><i class="fa fa-user"></i> Username</label>
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="password" name="password" required>
+            <label for="password"><i class="fa fa-lock"></i> Password</label>
+            <span class="toggle-password" onclick="togglePasswordVisibility('password')">
+                <i class="fa fa-eye"></i>
+            </span>
+        </div>
+        <div class="form-group">
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <label for="confirmPassword"><i class="fa fa-lock"></i> Confirm Password</label>
+            <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
+                <i class="fa fa-eye"></i>
+            </span>
+        </div>
+
+
+
+
+        <button class="login-btn" type="submit">Login</button>
+        <span> <a href="/forgot-password">Forgot Password?</a></span>
+        <span>  Don't have an account? <a href="/register">Register</a></span>
+
+    </form>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    function togglePasswordVisibility(inputId) {
+        var inputField = document.getElementById(inputId);
+        var eyeIcon = inputField.parentNode.querySelector('.toggle-password i');
+
+        if (inputField.type === 'password') {
+            inputField.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            inputField.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    }
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputs = document.querySelectorAll('input');
+
+        inputs.forEach(function (input) {
+            input.addEventListener('input', function () {
+                if (input.value.trim() !== '') {
+                    input.parentNode.querySelector('label').classList.add('filled');
+                } else {
+                    input.parentNode.querySelector('label').classList.remove('filled');
+                }
+            });
+        });
+    });
+
+    </script>
+
+</body>
+
+</html>

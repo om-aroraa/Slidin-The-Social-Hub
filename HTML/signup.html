@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Slidin</title>
+    <link rel="stylesheet" href="/public/css/signup.css">
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="form-body">
+        <form action="post">
+            <h1>Slidin</h1>
+            <h2>Hey there, Ready to Slide In?</h2>
+            <div class="head-1">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" autocomplete="off" required>
+                    <label for="name"><i class="fa fa-user"></i> Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="username" autocomplete="off" name="username" required>
+                    <label for="username"><i class="fa fa-user"></i> Username</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" autocomplete="off" name="email" required>
+                <label for="email"><i class="fa fa-envelope"></i> Email</label>
+            </div>
+            <div class="head-1">
+                <div class="form-group">
+                    <input type="password" id="password" name="password" required>
+                    <label for="password"><i class="fa fa-lock"></i> Password</label>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('password')">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <label for="confirmPassword"><i class="fa fa-lock"></i> Confirm Password</label>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="head-1">
+                <!-- <div class="form-group"> -->
+                    <div class="custom-file-input">
+                        <input type="file" id="profilePicture" name="profilePicture" class="input-file">
+                        <label for="profilePicture" class="file-label"><i class="fa-solid fa-camera-retro"></i> Choose Profile Pic</label>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <div class="form-group">
+                <div class="gender">
+                    <select name="gender" id="gender">
+                        <option value="" disabled selected required>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+            </div>
+    </div>
+    <span>Already have an account? <a href="/login">Login</a></span>
+    <button class="login-btn" type="submit">Signup</button>
+    </form>
+
+    </div>
+
+    <script>
+        function togglePasswordVisibility(inputId) {
+            var inputField = document.getElementById(inputId);
+            var eyeIcon = inputField.parentNode.querySelector('.toggle-password i');
+
+            if (inputField.type === 'password') {
+                inputField.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                inputField.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputs = document.querySelectorAll('input');
+
+            inputs.forEach(function (input) {
+                input.addEventListener('input', function () {
+                    if (input.value.trim() !== '') {
+                        input.parentNode.querySelector('label').classList.add('filled');
+                    } else {
+                        input.parentNode.querySelector('label').classList.remove('filled');
+                    }
+                });
+            });
+        });
+
+        // email regex validation and show error message
+        function validateEmail(email) {
+            var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            if (!emailRegex.test(email)) {
+                throw new Error(`Invalid email address: ${email}`);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

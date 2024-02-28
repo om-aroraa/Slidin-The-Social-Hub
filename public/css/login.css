@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    /* background: linear-gradient(360deg, #21A987 10%, #d3fff4 90%); */
+    display: flex;
+    background-color: #161616;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+
+
+}
+
+
+.form-body {
+    background-color: #c8e0ff;
+    background: linear-gradient(135deg, #012922, #044347);
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #D28303;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+
+    h2 {
+        margin-bottom: 1rem;
+        text-align: center;
+        font: bold 1.5rem Arial, sans-serif;
+        color: #c8fcff;
+    }
+
+    h1 {
+        color: #ccffcc;
+
+        margin-bottom: 1rem;
+        text-align: center;
+        font: bold 1.8rem Arial, sans-serif;
+    }
+
+    i {
+        margin-right: 0.5rem;
+
+    }
+
+    a {
+        color: #ffb6c1;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    a:hover {
+        color: #ccffcc;
+    }
+
+    span {
+        display: block;
+        text-align: center;
+        margin: 1rem;
+
+    }
+
+
+    .login-btn {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #D28303;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .login-btn:hover {
+        background-color: #3a003e;
+        transition: all 0.3s ease;
+    }
+}
+
+
+
+.form-group {
+    position: relative;
+    margin: .8rem;
+}
+
+label {
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    color: #FFD700;
+}
+
+/* Move placeholder inside input */
+input::placeholder {
+    transition: opacity 0.3s ease;
+}
+
+/* When input is not focused and not empty, hide placeholder */
+input:focus:not(:placeholder-shown)+label {
+    top: -0.5rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+label.filled {
+    top: -0.5rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.toggle-password i.fa-eye-slash::before {
+    content: "\f070";
+    /* Unicode for eye-slash icon */
+}
+
+/* When input is focused, hide placeholder */
+input:focus::placeholder {
+    opacity: 0;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    color: #333333;
+}
+
+input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #303030;
+}
+
+.toggle-password {
+    padding: 0.5rem;
+    cursor: pointer;
+}
