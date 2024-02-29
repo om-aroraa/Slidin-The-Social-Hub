@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/public/css/profile.css">
+    <link rel="stylesheet" href="/css/profile.css">
     <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
 </head>
 
@@ -14,7 +14,7 @@
         <div class="sidebar-1">
             <div class="sidebar-items">
                 <div class="icon-text profile-container">
-                <div class=""><a href=""><img class="avatar" src="/public/imgs/vilgax.png" alt="">
+                <div class=""><a href=""><img class="avatar" src="/imgs/vilgax.png" alt="">
                         <div class=""><span class="span-text-nav">Slidin'</span></div>      
                     </a></div>
 
@@ -68,9 +68,11 @@
                 </div></a>
                 <a href="">
                     <div class="icon-text profile-container">
-                        <div class=""><img class="avatar" src="/public/imgs/vilgax.png" alt=""></div>
+                        <div id="image-container">
+                        <img id="profile-image" src="<%= path %>" alt="" srcset="" />
+                        <div id="crop-preview"></div>
+                        </div>
                         <div class=""><span class="span-text-nav">Profile</span></div>
-
                     </div>
                 </a>
             </div>
@@ -80,7 +82,7 @@
             <div class="sidebar-items">
                 <a href="">
                     <div class="icon-text profile-container">
-                        <div class=""><img class="avatar" src="/public/imgs/vilgax.png" alt="">
+                        <div class=""><img class="avatar" src="/imgs/vilgax.png" alt="">
                         </div>
                     </div>
                 </a>
@@ -96,8 +98,6 @@
                     <div class="icon-text" onclick="toggleSidebar()">
                         <div>
                             <i class="fa fa-search"></i>
-                        </div>
-                        <div>
                         </div>
                     </div>
                 </a>
@@ -123,8 +123,10 @@
                 </a>
                 <a href="">
                     <div class="icon-text profile-container">
-                        <div class=""><img class="avatar" src="/public/imgs/vilgax.png" alt=""></div>
-
+                        <div id="image-container">
+                        <img id="profile-image" src="<%= path %>" alt="" srcset="" />
+                        <div id="crop-preview"></div>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -134,28 +136,44 @@
             <form action="/profile" method="post" enctype="multipart/form-data" id="searchForm">
                 <div class="search-input-container">
                     <input type="text" id="search" placeholder="&#x1F50E;&#xFE0E; Search.." name="value"
-                        oninput="toggleClearButton()">
+                        oninput="submitForm(event)" <% if (value){ %>
+                        value="<%= value %>"
+                        <% } %>>
                 </div>
             </form>
             <div class="search-results">
                 <!-- Placeholder content for search results -->
-                <div class="card">
-                    <div class="card-img">
-                        <img id="search-profilepics" src="/public/imgs/vilgax.png" alt="Profile Pic">
+            <ul>
+                <% if (results) { %>
+                <% results.forEach(function(result) { %>
+                <li><div class="card">
+                        <a href="/profile/<%= result.username %>">
+                            <div class="card_load">
+                                <img id="search-profilepics" src="<%= result.imgpath %>" alt="Profile Pic">   
+                            </div>
+                            <div class="card_load_extreme_title">
+                                <span>
+                                    <%= result.username %>
+                                </span>
+                            </div>
+                        </a>
+                        <div class="card_load_extreme_descripion">
+                                <form action="/friend/<%=result.username%>" method="post" enctype="multipart/form-data">
+                                    <button>Add Friend</button>
+                                </form>
+                        </div>
                     </div>
-                    <div class="card-details">
-                        <p class="username">Username</p>
-                        <button class="add-friend-btn">Add Friend</button>
-                    </div>
-                </div>
-            </div>
+                </li>
+                <% }) %>
+                <% } %>
+            </ul>
+            </div>  
         </div>
 
         <div class="main-body">
             <div class="body-container">
                 <div class="banner">
-                    <input type="file">
-                    <img class="banner-image" src="/public/imgs/banner2.webp" alt="Banner Image">
+                    <img class="banner-image" src="/imgs/banner2.webp" alt="Banner Image">
                 </div>
                 <div class="hmm">
 
@@ -166,9 +184,9 @@
                         <p></p>
                     </div>
                     <div class="avatar-container">
-                        <img class="avatar" src="/public/imgs/vilgax.png" alt="Avatar Image">
+                        <img class="avatar" src="<%= path %>" alt="Avatar Image">
                         <div class="h2-text">
-                            <h2>Username</h2>
+                            <h2><%= username%></h2>
                         </div>
                         <div class="btns-profile">
                             <button class="edit-profile-btn">Edit Profile</button>
@@ -194,6 +212,11 @@
 
     </div>
     <script>
+
+        if (<%= searched %>) {
+            toggleSidebar();
+        }
+
         function toggleSidebar() {
             // Hide sidebar 1
             var sidebar1 = document.querySelector('.sidebar-1');
@@ -214,6 +237,19 @@
                 var sidebar2 = document.getElementById('sidebar2');
                 sidebar2.style.display = 'block';
             }
+        }
+        
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+            document.getElementById("searchForm").submit();
+        }
+
+        let backend = "<%= value %>";
+        if (backend !== "false") {
+            let input = document.getElementById("search");
+            input.focus();
+            input.value = "";
+            input.value = backend;
         }
     </script>
 </body>
