@@ -8,13 +8,14 @@ body {
     height: 100vh;
     /* Corrected typo from 100lvh to 100vh */
     overflow: hidden;
-
 }
 
 .profile-body1 {
     display: grid;
-    grid-template-columns: 15% auto;
+    grid-template-columns: 250px auto;
+    /* Sidebar 1 takes 250px, Sidebar 2 takes the rest */
     grid-template-rows: 100vh;
+    /* Ensure the grid spans the entire height of the viewport */
     background-color: #f5f5f5;
     overflow: hidden;
 }
@@ -25,11 +26,15 @@ body {
     position: fixed;
     top: 0;
     left: 115px;
+    /* Position it to the right of sidebar-2 */
     width: 350px;
     height: 100vh;
+    /* Set the width as required */
     padding: 20px;
     background-color: #fff;
     z-index: 2;
+    /* Ensure it's above main-body */
+
 }
 
 .sidebar-1,
@@ -38,7 +43,21 @@ body {
     /* Adjust duration and timing function */
 }
 
-
+.sidebar-1 {
+    grid-column: 1;
+    /* Sidebar 1 takes the first column */
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    background-color: #f5f5f5;
+    width: auto;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
 .sidebar-2 {
     grid-column: 1;
@@ -138,6 +157,49 @@ body {
 .profile-container a {
     display: flex;
     align-items: center;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.card-img {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.card-img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.card-details {
+    flex: 1 1 auto;
+}
+
+.card-details .username {
+    margin-bottom: 5px;
+}
+
+.add-friend-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.add-friend-btn:hover {
+    background-color: #0056b3;
 }
 
 #search {
@@ -259,59 +321,24 @@ li {
     grid-template-rows: auto auto;
 }
 
-
-
-
-
-
-/* dummy */
-
-
 .banner {
-    z-index: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 100%;
     overflow: hidden;
-    position: relative;
-    /* Ensure relative positioning for absolute elements */
+
+    .h2-text {
+        display: flex;
+    }
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        color: #1e1e1e;
+
+    }
 }
-
-.banner-image,
-.fileInput {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    object-position: center;
-}
-
-.banner-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.hover-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 8px;
-    border-radius: 5px;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-}
-
-.fileInput:hover .hover-text {
-    opacity: 1;
-}
-
-
-
 
 .hmm {
     display: grid;
@@ -322,8 +349,17 @@ li {
     width: 100%;
 }
 
+
+
+.banner-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
+
+}
+
 .avatar-container {
-    z-index: 2;
     grid-column: 2;
     display: flex;
     flex-direction: column;
@@ -396,10 +432,10 @@ li {
     font-size: medium;
     font-weight: bolder;
 
-    p {
+    p{
         margin: 0;
         padding: 0;
-
+        
     }
 }
 
@@ -453,326 +489,4 @@ li {
 .edit-profile-btn:hover,
 .view-archieve-btn:hover {
     background-color: #0056b3;
-}
-
-.post-container {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-}
-
-.headings {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: #4a4a4a 2px solid;
-}
-
-
-.post img {
-    width: 200px;
-}
-
-
-/* ================================================= */
-
-
-
-
-
-.headings h2 {
-    position: relative;
-    font-size: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    /* border: rgb(101, 101, 28) 2px solid; */
-}
-
-
-
-.headings h2::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #007bff;
-    transition: all 0.3s ease;
-}
-
-.headings h2:hover::after {
-    width: 100%;
-}
-
-
-.contents {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.content-1,
-.content-2 {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-.content-2 {
-    display: none;
-}
-
-.grid-single {
-    display: flex;
-    flex-wrap: wrap;
-    width: 75%;
-    gap: 5px;
-    justify-content: center;
-}
-
-.grid-post {
-    width: 300px;
-    height: 300px;
-}
-
-
-
-
-
-/* ==================================================== */
-
-
-
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.popup-wrapper {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
-
-.popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    /* Keep it positioned towards the right */
-    transform: translate(-50%, -50%);
-    width: 95%;
-    /* Make it a bit wider */
-    max-width: 1000px;
-    /* Set a maximum width if needed */
-    height: 80%;
-    /* Adjust the height as desired */
-    max-height: 600px;
-    /* Set a maximum height if needed */
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    /* Increase border radius for smoother corners */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    /* Increase box shadow for more depth */
-    display: flex;
-    /* Use flexbox to arrange content */
-}
-
-.left-content {
-    flex: 2;
-    height: 100%;
-    /* Set height to fill the container */
-    background-size: cover;
-    /* Make the background image cover the container */
-    background-position: center;
-    /* Center the background image */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    /* Remove padding */
-}
-
-.left-content img {
-    max-height: 100%;
-    /* Ensure the image doesn't overflow the container */
-}
-
-.right-content {
-    flex: 1;
-    /* Right side takes one-third of the space */
-    padding: 20px;
-    /* Add padding to the content */
-    background-color: lightgreen;
-    /* Background color for the right side */
-    width: 200px;
-    /* Fixed width for the right side */
-    overflow: auto;
-    /* Add scrollbars when content overflows */
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-}
-
-.user-avatar {
-    width: 40px;
-    /* Adjust avatar size as needed */
-    height: 40px;
-    /* Adjust avatar size as needed */
-    border-radius: 50%;
-    /* Make the avatar round */
-    margin-right: 10px;
-    /* Add some space between avatar and username */
-}
-
-.username {
-    font-weight: bold;
-}   
-
-
-.right-content {
-    position: relative;
-    /* Set position relative for absolute positioning of comment section */
-}
-/*  */
-.comment-section {
-    position: absolute;
-    /* Position the comment section */
-    bottom: 0;
-    /* Align to the bottom */
-    left: 0;
-    /* Align to the left */
-    width: 90%;
-    /* Occupy full width */
-    display: flex;
-    align-items: center;
-}
-
-.emoji-icon {
-    font-size: 20px;
-    /* Adjust icon size */
-    margin-right: 10px;
-    /* Add space between emoji icon and input box */
-}
-
-.comment-input {
-    flex: 1;
-    /* Input box takes up remaining space */
-    padding: 10px;
-    /* Add padding to the input box */
-    border: 1px solid #ccc;
-    /* Add border to the input box */
-    border-radius: 5px;
-    /* Add border radius */
-}
-
-.comment-button {
-    background-color: transparent;
-    /* Make button transparent */
-    color: #007bff;
-    /* Button text color */
-    border: none;
-    /* Remove button border */
-    padding: 10px;
-    /* Add padding to the button */
-    cursor: pointer;
-    /* Add pointer cursor on hover */
-}
-
-.comment-button i {
-    font-size: 20px;
-    /* Adjust icon size */
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-
-
-/* ================================================================== */
-/* Responsive styles for tablets and iPads */
-
-@media only screen and (max-width: 1024px) {
-    .popup-content {
-        width: 80%;
-        /* Adjust width for tablets and iPads */
-        height: 60%;
-        /* Adjust height for tablets and iPads */
-        max-width: unset;
-        /* Remove maximum width */
-        max-height: unset;
-        /* Remove maximum height */
-    }
-}
-
-
-@media only screen and (max-width: 600px) {
-    .popup-content {
-        flex-direction: column;
-        width: 80%;
-        max-width: unset;
-        max-height: unset;
-    }
-
-    .left-content {
-        order: -1;
-        margin-right: 0;
-    }
-
-    .left-content img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-
-    .right-content {
-        width: 100%;
-        /* Adjusted to 100% */
-        overflow: auto;
-        position: relative;
-        padding: 0;
-        /* Remove padding */
-        margin: 0;
-        /* Adjust margin as needed */
-        margin-bottom: 20px;
-        /* Add margin-bottom for spacing */
-    }
-
-    .caption {
-        margin-bottom: 50px;
-    }
-
-    .comment-section {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-    }
 }

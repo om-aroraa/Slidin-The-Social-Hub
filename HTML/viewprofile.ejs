@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="profile-body1">
+        <div class="sidebar-1">
+            <div class="sidebar-items">
+                <div class="icon-text profile-container">
+                <div class=""><a href=""><img class="avatar" src="/imgs/vilgax.png" alt="">
+                        <div class=""><span class="span-text-nav">Slidin'</span></div>      
+                    </a></div>
+
+                </div>
+                <a href="">
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+                        <div class=""><span class="span-text-nav">Home</span></div>
+
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                            <span class="span-text-nav">Search</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/createposts">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-circle-plus"></i> </div>
+                        <div class=""><span class="span-text-nav">Create</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-comment"></i> </div>
+                        <div class=""><span class="span-text-nav">Chat</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-heart"></i></div>
+                        <div class=""><span class="span-text-nav">Notifications</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-gear"></i></div>
+                    <div class=""><span class="span-text-nav">Settings</span></div>
+
+                </div></a>
+                <a href="/profile ">
+                    <div class="icon-text profile-container">
+                        <div id="image-container">
+                        <img id="profile-image" src="<%= userpath %>" alt="" srcset="" />
+                        <div id="crop-preview"></div>
+                        </div>
+                        <div class=""><span class="span-text-nav">Profile</span></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-2" id="sidebar2">
+            <!-- Additional HTML content for sidebar 2 -->
+            <div class="sidebar-items">
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div class=""><img class="avatar" src="/imgs/vilgax.png" alt="">
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="/createposts">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-circle-plus"></i> </div>
+                </div></a>
+                <a href="">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-comment"></i> </div>
+                </div></a>
+                <a href="">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-heart"></i></div>
+                </div>
+            </a>
+
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-gear"></i></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div id="image-container">
+                        <img id="profile-image" src="<%= userpath %>" alt="" srcset="" />
+                        <div id="crop-preview"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="search-container" id="s-c" style="display: none;">
+            <h2>Search</h2>
+            <form action="/profile" method="post" enctype="multipart/form-data" id="searchForm">
+                <div class="search-input-container">
+                    <input type="text" id="search" placeholder="&#x1F50E;&#xFE0E; Search.." name="value"
+                        oninput="submitForm(event)" <% if (value){ %>
+                        value="<%= value %>"
+                        <% } %>>
+                </div>
+            </form>
+            <div class="search-results">
+                <!-- Placeholder content for search results -->
+            <ul>
+                <% if (results) { %>
+                <% results.forEach(function(result) { %>
+                <li><div class="card">
+                        <a href="/profile/<%= result.username %>">
+                            <div class="card_load">
+                                <img id="search-profilepics" src="<%= result.imgpath %>" alt="Profile Pic">   
+                            </div>
+                            <div class="card_load_extreme_title">
+                                <span>
+                                    <%= result.username %>
+                                </span>
+                            </div>
+                        </a>
+                        <div class="card_load_extreme_descripion">
+                                <form action="/friend/<%=result.username%>" method="post" enctype="multipart/form-data">
+                                    <button>Add Friend</button>
+                                </form>
+                        </div>
+                    </div>
+                </li>
+                <% }) %>
+                <% } %>
+            </ul>
+            </div>  
+        </div>
+
+        <div class="main-body">
+            <div class="body-container">
+                <div class="banner">
+                    <img class="banner-image" src="/imgs/banner2.webp" alt="Banner Image">
+                </div>
+                <div class="hmm">
+
+                    <div class="bio-up">
+                        <!-- <h2>Bio</h2>    -->
+                        <p>20</p>
+                        <p>SIU'25</p>
+                        <p></p>
+                    </div>
+                    <div class="avatar-container">
+                        <img class="avatar" src="<%= path %>" alt="Avatar Image">
+                        <div class="h2-text">
+                            <h2><%= username %></h2>
+                        </div>
+                        <div class="btns-profile">
+                            <button class="edit-profile-btn">Edit Profile</button>
+                            <button class="view-archieve-btn">View Archive</button>
+                        </div>
+                    </div>
+                    <div class="profile-item-container">
+                        <div class="profile-item">
+                            <h3>69</h3>
+                            <p>Posts</p>
+                        </div>
+                        <div class="profile-item">
+                            <h3>96</h3>
+                            <p>Friends</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+    <script>
+
+        if (<%= searched %>) {
+            toggleSidebar();
+        }
+
+        function toggleSidebar() {
+            // Hide sidebar 1
+            var sidebar1 = document.querySelector('.sidebar-1');
+            if (sidebar1.style.display === 'none') {
+                sidebar1.style.display = 'block';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'none';
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'none';
+            } else {
+                sidebar1.style.display = 'none';
+                sidebar1.style.display = 'none';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'block';
+
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'block';
+            }
+        }
+        
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+            document.getElementById("searchForm").submit();
+        }
+
+        let backend = "<%= value %>";
+        if (backend !== "false") {
+            let input = document.getElementById("search");
+            input.focus();
+            input.value = "";
+            input.value = backend;
+        }
+    </script>
+</body>
+
+</html>

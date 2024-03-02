@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="profile-body1">
+        <div class="sidebar-1">
+            <div class="sidebar-items">
+                <div class="icon-text profile-container">
+                    <div class=""><a href=""><img class="avatar" src="/imgs/vilgax.png" alt="">
+                            <div class=""><span class="span-text-nav">Slidin'</span></div> 
+                        </a>
+                    </div>
+                </div>
+                <a href="">
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+                        <div class=""><span class="span-text-nav">Home</span></div>
+
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                            <span class="span-text-nav">Search</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/createposts">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-circle-plus"></i> </div>
+                        <div class=""><span class="span-text-nav">Create</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-comment"></i> </div>
+                        <div class=""><span class="span-text-nav">Chat</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-heart"></i></div>
+                        <div class=""><span class="span-text-nav">Notifications</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-gear"></i></div>
+                        <div class=""><span class="span-text-nav">Settings</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div class=""><img class="avatar" src="<%= path %>" alt=""></div>
+                        <div class=""><span class="span-text-nav">Profile</span></div>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-2" id="sidebar2">
+            <!-- Additional HTML content for sidebar 2 -->
+            <div class="sidebar-items">
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div class=""><img class="avatar" src="/imgs/vilgax.png" alt="">
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </a>
+                <a href="createposts">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-circle-plus"></i> </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-comment"></i> </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-heart"></i></div>
+                    </div>
+                </a>
+
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-gear"></i></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div id="image-container">
+                        <img id="profile-image" src="<%= path %>" alt="" srcset="" />
+                        <div id="crop-preview"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="search-container" id="s-c" style="display: none;">
+            <h2>Search</h2>
+            <form action="/profile" method="post" enctype="multipart/form-data" id="searchForm">
+                <div class="search-input-container">
+                    <input type="text" id="search" placeholder="&#x1F50E;&#xFE0E; Search.." name="value"
+                        oninput="submitForm(event)" <% if (value){ %>
+                        value="<%= value %>"
+                        <% } %>>
+                </div>
+            </form>
+            <div class="search-results">
+                <!-- Placeholder content for search results -->
+            <ul>
+                <% if (results) { %>
+                <% results.forEach(function(result) { %>
+                <li><div class="card">
+                        <a href="/profile/<%= result.username %>">
+                            <div class="card_load">
+                                <img id="search-profilepics" src="<%= result.imgpath %>" alt="Profile Pic">   
+                            </div>
+                            <div class="card_load_extreme_title">
+                                <span>
+                                    <%= result.username %>
+                                </span>
+                            </div>
+                        </a>
+                        <div class="card_load_extreme_descripion">
+                                <form action="/friend/<%=result.username%>" method="post" enctype="multipart/form-data">
+                                    <button>Add Friend</button>
+                                </form>
+                        </div>
+                    </div>
+                </li>
+                <% }) %>
+                <% } %>
+            </ul>
+            </div>  
+        </div>
+
+        <div class="main-body">
+            <div class="body-container">
+                <div class="banner">
+                    <label for="fileInput" class="fileInput">
+                        <img class="banner-image" src="/imgs/banner2.webp" alt="Banner Image"
+                            title="Change your Banner">
+                        <input type="file" id="fileInput" class="banner-input">
+                    </label>
+                </div>
+                <div class="hmm">
+                    <div class="bio-up">
+                        <!-- <h2>Bio</h2>    -->
+                        <p>20</p>
+                        <p>SIU'25</p>
+                        <p></p>
+                    </div>
+                    <div class="avatar-container">
+                        <img class="avatar" src="<%= path %>" alt="Avatar Image" title="Change your avatar">
+                        <div class="h2-text">
+                            <h2><%= username %></h2>
+                        </div>
+                        <div class="btns-profile">
+                            <button class="edit-profile-btn">Edit Profile</button>
+                        </div>
+                    </div>
+                    <div class="profile-item-container">
+                        <div class="profile-item">
+                            <h3>69</h3>
+                            <p>Posts</p>
+                        </div>
+                        <div class="profile-item">
+                            <h3><%= totalFriends %></h3>
+                            <p>Friends</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-container">
+                <div class="headings">
+                    <div class="division active" id="division1" onclick="toggleDivision(this)">
+                        <h2>Posts</h2>
+                    </div>
+                    <div class="division" id="division2" onclick="toggleDivision(this)">
+                        <h2>Archive</h2>
+                    </div>
+                </div>
+                <div class="contents">
+                    <div class="content-1" id="content-1">
+                        <div class="grid-single">
+                            <img id="openPopup" class="grid-post" src="/imgs/vilgax.png" alt=""
+                           onclick="openPopup()">
+                                <div class="popup-wrapper" id="popupWrapper">
+                                  <div class="popup-content">
+                                    <span class="close" onclick="closePopup()">&times;</span>
+                                    <div class="left-content">
+                                      <!-- Content for the left side -->
+                                      <div
+                                        class="left-content"
+                                        style="background-image: url('/imgs/cubes.webp')"
+                                      ></div>
+                                    </div>
+                                    <div class="right-content">
+                                      <div class="user-info">
+                                        <img
+                                          src="/imgs/vilgax.png"
+                                          alt="Avatar"
+                                          class="user-avatar"
+                                        />
+                                        <span class="username">John Doe</span>
+                                      </div>
+                                      <p class="caption">
+                                        This is the content for the right side. Lorem ipsum dolor sit amet,
+                                        consectetur adipiscing elit. Sed vestibulum eros ut diam suscipit
+                                        eleifend. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                        Id veritatis voluptate aspernatur quisquam earum incidunt aliquam
+                                        illo. Inventore velit numquam fuga nesciunt aliquam maiores
+                                        quisquam, est, voluptate odio assumenda repellendus!
+                                      </p>
+                                      <div class="comment-section">
+                                        <i class="far fa-smile emoji-icon"></i>
+                                        <input
+                                          type="text"
+                                          class="comment-input"
+                                          placeholder="Write a comment..."
+                                        />
+                                        <button class="comment-button">
+                                          <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
+                        </div>
+                    </div>
+                    <div class="content-2" id="content-2">
+                        <div class="grid-single">
+                            <img class="grid-post" src="/imgs/cubes.webp" alt="">
+                            <img class="grid-post" src="/imgs/cubes.webp" alt="">
+                            <img class="grid-post" src="/imgs/cubes.webp" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        if (<%= searched %>) {
+            toggleSidebar();
+        }
+
+        function toggleSidebar() {
+            // Hide sidebar 1
+            var sidebar1 = document.querySelector('.sidebar-1');
+            if (sidebar1.style.display === 'none') {
+                sidebar1.style.display = 'block';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'none';
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'none';
+            } else {
+                sidebar1.style.display = 'none';
+                sidebar1.style.display = 'none';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'block';
+
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'block';
+            }
+        }
+        
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+            document.getElementById("searchForm").submit();
+        }
+
+        let backend = "<%= value %>";
+        if (backend !== "false") {
+            let input = document.getElementById("search");
+            input.focus();
+            input.value = "";
+            input.value = backend;
+        }
+
+
+        // Function to toggle visibility of content based on clicked division
+        function toggleDivision(element) {
+            var division1 = document.getElementById('division1');
+            var division2 = document.getElementById('division2');
+            var content1 = document.getElementById('content-1');
+            var content2 = document.getElementById('content-2');
+            if (element.id === 'division1') {
+                // division1.classList.add('active');
+                // division2.classList.remove('active');
+                content1.style.display = 'flex';
+                content2.style.display = 'none';
+            } else {
+                // division1.classList.remove('active');
+                // division2.classList.add('active');
+                content1.style.display = 'none';
+                content2.style.display = 'flex';
+            }
+        }
+
+
+      function openPopup() {
+        document.getElementById("popupWrapper").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popupWrapper").style.display = "none";
+      }
+    </script>
+</body>
+
+</html>
