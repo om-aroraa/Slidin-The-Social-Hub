@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop-up Message</title>
+    <link rel="stylesheet" href="/public/css/pop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="popup-wrapper" id="popupWrapper">
+<div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <div class="left-content">
+        <!-- Content for the left side -->
+<div class="left-content" style="background-image: url('/public/imgs/vilgax.png');">
+</div>
+
+
+    </div>
+<div class="right-content">
+    <div class="user-info">
+        <img src="/public/imgs/avatar.jpg" alt="Avatar" class="user-avatar">
+        <span class="username">John Doe</span>
+    </div>
+    <p class="caption">This is the content for the right side. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Sed vestibulum eros ut diam suscipit eleifend. Lorem ipsum dolor sit amet consectetur adipisicing elit. Id veritatis voluptate aspernatur quisquam earum incidunt aliquam illo. Inventore velit numquam fuga nesciunt aliquam maiores quisquam, est, voluptate odio assumenda repellendus!</p>
+    <div class="comment-section">
+        <i class="far fa-smile emoji-icon"></i>
+        <input type="text" class="comment-input" placeholder="Write a comment...">
+        <button class="comment-button"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+
+
+</div>
+
+    </div>
+
+    <button onclick="openPopup()">Open Pop-up</button>
+
+    <script>
+        function openPopup() {
+            document.getElementById("popupWrapper").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popupWrapper").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

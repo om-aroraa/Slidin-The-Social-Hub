@@ -14,10 +14,10 @@
         <div class="sidebar-1">
             <div class="sidebar-items">
                 <div class="icon-text profile-container">
-                <div class=""><a href=""><img class="avatar" src="/public/imgs/vilgax.png" alt="">
-                        <div class=""><span class="span-text-nav">Slidin'</span></div>      
-                    </a></div>
-
+                    <div class=""><a href=""><img class="avatar" src="/public/imgs/vilgax.png" alt="">
+                            <div class=""><span class="span-text-nav">Slidin'</span></div> 
+                        </a>
+                    </div>
                 </div>
                 <a href="">
                     <div class="icon-text">
@@ -61,11 +61,12 @@
                     </div>
                 </a>
                 <a href="">
-                <div class="icon-text">
-                    <div class=""><i class="fa fa-gear"></i></div>
-                    <div class=""><span class="span-text-nav">Settings</span></div>
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-gear"></i></div>
+                        <div class=""><span class="span-text-nav">Settings</span></div>
 
-                </div></a>
+                    </div>
+                </a>
                 <a href="">
                     <div class="icon-text profile-container">
                         <div class=""><img class="avatar" src="/public/imgs/vilgax.png" alt=""></div>
@@ -102,18 +103,20 @@
                     </div>
                 </a>
                 <a href="">
-                <div class="icon-text">
-                    <div class=""><i class="fa fa-circle-plus"></i> </div>
-                </div></a>
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-circle-plus"></i> </div>
+                    </div>
+                </a>
                 <a href="">
-                <div class="icon-text">
-                    <div class=""><i class="fa fa-comment"></i> </div>
-                </div></a>
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-comment"></i> </div>
+                    </div>
+                </a>
                 <a href="">
-                <div class="icon-text">
-                    <div class=""><i class="fa fa-heart"></i></div>
-                </div>
-            </a>
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-heart"></i></div>
+                    </div>
+                </a>
 
                 <a href="">
                     <div class="icon-text">
@@ -154,9 +157,13 @@
         <div class="main-body">
             <div class="body-container">
                 <div class="banner">
-                    <input type="file">
-                    <img class="banner-image" src="/public/imgs/banner2.webp" alt="Banner Image">
+                    <label for="fileInput" class="fileInput">
+                        <img class="banner-image" src="/public/imgs/banner2.webp" alt="Banner Image"
+                            title="Change your Banner">
+                        <input type="file" id="fileInput" class="banner-input">
+                    </label>
                 </div>
+
                 <div class="hmm">
 
                     <div class="bio-up">
@@ -166,13 +173,12 @@
                         <p></p>
                     </div>
                     <div class="avatar-container">
-                        <img class="avatar" src="/public/imgs/vilgax.png" alt="Avatar Image">
+                        <img class="avatar" src="/public/imgs/vilgax.png" alt="Avatar Image" title="Change your avatar">
                         <div class="h2-text">
                             <h2>Username</h2>
                         </div>
                         <div class="btns-profile">
                             <button class="edit-profile-btn">Edit Profile</button>
-                            <button class="view-archieve-btn">View Archive</button>
                         </div>
                     </div>
                     <div class="profile-item-container">
@@ -187,10 +193,86 @@
                     </div>
                 </div>
 
+
+
             </div>
 
+            <div class="post-container">
+                <div class="headings">
+                    <div class="division active" id="division1" onclick="toggleDivision(this)">
+                        <h2>Posts</h2>
+                    </div>
+                    <div class="division" id="division2" onclick="toggleDivision(this)">
+                        <h2>Archive</h2>
+                    </div>
+                </div>
+                <div class="contents">
+                    <div class="content-1" id="content-1">
+                        <div class="grid-single">
+                            <img id="openPopup" class="grid-post" src="/public/imgs/vilgax.png" alt=""
+                            onclick="togglePopup()">
+                            <div id="popup" class="popup">
+                                <div class="black-background">
+                                <div class="popup-content">
+                                    <span class="close">&times;</span>
+                                    <div class="content">
+                                        <div class="image-container">
+                                            <img src="/public/imgs/banner2.webp" alt="Example Image">
+                                        </div>
+                                            <div class="user-info">
+                                                <div class="avatar-popup">
+                                                    <img src="/public/imgs/vilgax.png" alt="Avatar Placeholder">
+                                                </div>
+                                                <div class="user-details">
+                                                    <h3>Username</h3>
+                                                    <p>Caption Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                                        Ipsum corrupti, voluptatem
+                                                        soluta veritatis voluptatibus reiciendis porro perspiciatis
+                                                        ducimus expedita incidunt
+                                                        laboriosam eligendi nemo quidem accusantium placeat alias
+                                                        ratione dicta vitae est. Inventore
+                                                        a nemo quidem doloribus harum ipsum ad reiciendis ea, temporibus
+                                                        odit ex minus provident,
+                                                        dignissimos debitis rem! Quia dignissimos doloribus, ab fuga ea
+                                                        deserunt, quas maxime earum
+                                                        perferendis et quisquam magni quaerat provident amet mollitia a
+                                                        iusto officiis impedit,
+                                                        repellendus debitis! Quae fugiat ducimus sint possimus deleniti
+                                                        nemo tempora voluptatibus
+                                                        repudiandae molestiae dolores quidem aliquam velit, minima ex
+                                                        perferendis excepturi quis
+                                                        similique sit veritatis quas vitae aut dolore.</p>
+                                                </div>
+                                            </div>
+                                            <div class="message-input">
+                                                <button class="emoji-button"><i class="far fa-smile"></i></button>
+                                                <input type="text" placeholder="Type your message...">
+                                                <button class="send-button"><i class="fas fa-paper-plane"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img class="grid-post" src="/public/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/public/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/public/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/public/imgs/vilgax.png" alt="">
+                            <img class="grid-post" src="/public/imgs/vilgax.png" alt="">
+                        </div>
+                    </div>
+                    <div class="content-2" id="content-2">
+                        <div class="grid-single">
+                            <img class="grid-post" src="/public/imgs/cubes.webp" alt="">
+                            <img class="grid-post" src="/public/imgs/cubes.webp" alt="">
+                            <img class="grid-post" src="/public/imgs/cubes.webp" alt="">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
         </div>
-    </div>
 
     </div>
     <script>
@@ -215,6 +297,35 @@
                 sidebar2.style.display = 'block';
             }
         }
+
+
+        // Function to toggle visibility of content based on clicked division
+        function toggleDivision(element) {
+            var division1 = document.getElementById('division1');
+            var division2 = document.getElementById('division2');
+            var content1 = document.getElementById('content-1');
+            var content2 = document.getElementById('content-2');
+            if (element.id === 'division1') {
+                // division1.classList.add('active');
+                // division2.classList.remove('active');
+                content1.style.display = 'flex';
+                content2.style.display = 'none';
+            } else {
+                // division1.classList.remove('active');
+                // division2.classList.add('active');
+                content1.style.display = 'none';
+                content2.style.display = 'flex';
+            }
+        }
+
+
+        document.getElementById("openPopup").addEventListener("click", function () {
+            document.getElementById("popup").style.display = "block";
+        });
+
+        document.querySelector(".close").addEventListener("click", function () {
+            document.getElementById("popup").style.display = "none";
+        });
     </script>
 </body>
 

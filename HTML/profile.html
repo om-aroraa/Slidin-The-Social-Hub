@@ -112,6 +112,24 @@
             });
         });
 
+        const fileInput = document.querySelector('.fileInput');
+            const hoverText = document.querySelector('.hover-text');
+            let timeoutId;
+
+            fileInput.addEventListener('mouseenter', () => {
+                // Show the text after a delay
+                timeoutId = setTimeout(() => {
+                    hoverText.style.opacity = '1';
+                }, 500); // Adjust the delay time as needed
+            });
+
+            fileInput.addEventListener('mouseleave', () => {
+                // Clear the timeout if the mouse leaves before the delay
+                clearTimeout(timeoutId);
+                // Hide the text immediately
+                hoverText.style.opacity = '0';
+            });
+
     </script>
 </body>
 
