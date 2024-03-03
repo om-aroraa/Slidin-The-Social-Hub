@@ -604,7 +604,8 @@ button:hover {
     flex: 2;
     height: 100%;
     /* Set height to fill the container */
-    background-size: cover;
+    /* background-size: cover; */
+    background-repeat: no-repeat;
     /* Make the background image cover the container */
     background-position: center;
     /* Center the background image */
