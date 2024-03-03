@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    
     <div class="profile-body1">
         <div class="sidebar-1">
             <div class="sidebar-items">
@@ -222,34 +223,29 @@
                 <div class="contents">
                     <div class="content-1" id="content-1">
                         <div class="grid-single">
-                            <img id="openPopup" class="grid-post" src="/imgs/vilgax.png" alt=""
-                           onclick="openPopup()">
-                                <div class="popup-wrapper" id="popupWrapper">
+                            <% for (let i = posts.length-1; i >= 0; i--) { %>
+                            <img id="" class="grid-post" src="<%= posts[i].postpath %>" alt="" onclick="openPopup('<%= i %>')">
+                                <div class="popup-wrapper" id="open_popup_<%= i %>">
                                   <div class="popup-content">
-                                    <span class="close" onclick="closePopup()">&times;</span>
+                                    <span class="close" onclick="closePopup('<%= i %>')">&times;</span>
                                     <div class="left-content">
                                       <!-- Content for the left side -->
                                       <div
                                         class="left-content"
-                                        style="background-image: url('/imgs/cubes.webp')"
+                                        style="background-image: url('<%= posts[i].postpath %>')"
                                       ></div>
                                     </div>
                                     <div class="right-content">
                                       <div class="user-info">
                                         <img
-                                          src="/imgs/vilgax.png"
+                                          src="<%= path %>"
                                           alt="Avatar"
                                           class="user-avatar"
                                         />
-                                        <span class="username">John Doe</span>
+                                        <span class="username"><%= username %></span>
                                       </div>
                                       <p class="caption">
-                                        This is the content for the right side. Lorem ipsum dolor sit amet,
-                                        consectetur adipiscing elit. Sed vestibulum eros ut diam suscipit
-                                        eleifend. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Id veritatis voluptate aspernatur quisquam earum incidunt aliquam
-                                        illo. Inventore velit numquam fuga nesciunt aliquam maiores
-                                        quisquam, est, voluptate odio assumenda repellendus!
+                                        <%= posts[i].postcaption %>
                                       </p>
                                       <div class="comment-section">
                                         <i class="far fa-smile emoji-icon"></i>
@@ -265,18 +261,50 @@
                                     </div>
                                   </div>
                                 </div>
-                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
-                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
-                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
-                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
-                            <img class="grid-post" src="/imgs/vilgax.png" alt="">
+                            <% } %>
                         </div>
                     </div>
                     <div class="content-2" id="content-2">
                         <div class="grid-single">
-                            <img class="grid-post" src="/imgs/cubes.webp" alt="">
-                            <img class="grid-post" src="/imgs/cubes.webp" alt="">
-                            <img class="grid-post" src="/imgs/cubes.webp" alt="">
+                            <% for (let i = archives.length-1; i >= 0; i--) { %>
+                            <img id="" class="grid-post" src="<%= archives[i].postpath %>" alt="" onclick="openPopup('<%= i %>')">
+                                <div class="popup-wrapper" id="open_popup_<%= i %>">
+                                  <div class="popup-content">
+                                    <span class="close" onclick="closePopup('<%= i %>')">&times;</span>
+                                    <div class="left-content">
+                                      <!-- Content for the left side -->
+                                      <div
+                                        class="left-content"
+                                        style="background-image: url('<%= archives[i].postpath %>')"
+                                      ></div>
+                                    </div>
+                                    <div class="right-content">
+                                      <div class="user-info">
+                                        <img
+                                          src="<%= archives[i].postpath %>"
+                                          alt="Avatar"
+                                          class="user-avatar"
+                                        />
+                                        <span class="username"><%= username %></span>
+                                      </div>
+                                      <p class="caption">
+                                        <%= archives[i].postcaption %>
+                                      </p>
+                                      <div class="comment-section">
+                                        <i class="far fa-smile emoji-icon"></i>
+                                        <input
+                                          type="text"
+                                          class="comment-input"
+                                          placeholder="Write a comment..."
+                                        />
+                                        <button class="comment-button">
+                                          <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -344,12 +372,12 @@
         }
 
 
-      function openPopup() {
-        document.getElementById("popupWrapper").style.display = "block";
+      function openPopup(id) {
+        document.getElementById("open_popup_" + id).style.display = "block";
       }
 
-      function closePopup() {
-        document.getElementById("popupWrapper").style.display = "none";
+      function closePopup(id) {
+        document.getElementById("open_popup_" + id).style.display = "none";
       }
     </script>
 </body>

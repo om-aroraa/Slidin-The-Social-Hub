@@ -145,15 +145,38 @@ app.get("/profile", (req, res) => {
           if (results.length === 0) accepted = "";
           else accepted = results[0].accepted.split(",");
           if (accepted[0] === "") accepted = [];
-          res.render("profile", {
-            userpath: decodeURIComponent(req.cookies.userimg),
-            path: imgpath,
-            username: username,
-            name: name,
-            searched: false,
-            results: false,
-            value: false,
-            totalFriends: accepted.length,
+          db.query(
+            "SELECT * FROM createposts WHERE username = ?", [username],
+            (err, results) => {
+              if (err) throw err;
+              let posts = results;
+              let today = [];
+              let archive = [];
+              let current = new Date().getTime();
+              new Promise((resolve, reject) => {
+                posts.forEach((post) => {
+                // Check if post is older than 24 hours
+                if (current - post.timestamp > 86400000) {
+                  archive.push(post);
+                } else {
+                  today.push(post);
+                }
+              });
+              resolve();
+            }).then(() => {
+              res.render("profile", {
+                userpath: decodeURIComponent(req.cookies.userimg),
+                path: imgpath,
+                username: username,
+                name: name,
+                results: today,
+                searched: false,
+                value: false,
+                totalFriends: accepted.length,
+                posts: today,
+                archives: archive,
+              });
+            });
           });
         }
       );
@@ -176,6 +199,8 @@ app.post("/profile", (req, res) => {
       searched: false,
       value: false,
       totalFriends: 0,
+      posts: [],
+      archives: [],
     });
   }
   db.query(
@@ -201,6 +226,8 @@ app.post("/profile", (req, res) => {
             searched: true,
             value: value,
             totalFriends: accepted.length,
+            posts: [],
+            archives: [],
           });
         }
       );
@@ -228,15 +255,35 @@ app.get("/profile/:username", (req, res) => {
           let accepted = "";
           if (results.length !== 0) accepted = results[0].accepted.split(",");
           if (accepted[0] === "") accepted = [];
-          res.render("viewprofile", {
-            userpath: decodeURIComponent(req.cookies.userimg),
-            path: imgpath,
-            username: username,
-            name: name,
-            results: false,
-            searched: false,
-            value: false,
-            totalFriends: accepted.length,
+          db.query(
+            "SELECT * FROM createposts WHERE username = ?", [username],
+            (err, results) => {
+              if (err) throw err;
+              let posts = results;
+              let today = [];
+              let current = new Date().getTime();
+              new Promise((resolve, reject) => {
+                posts.forEach((post) => {
+                // Check if post is older than 24 hours
+                if (current - post.timestamp < 86400000) {
+                  today.push(post);
+                }
+              });
+              resolve();
+            }).then(() => {
+              res.render("viewprofile", {
+                userpath: decodeURIComponent(req.cookies.userimg),
+                path: imgpath,
+                username: username,
+                name: name,
+                results: today,
+                searched: false,
+                value: false,
+                totalFriends: accepted.length,
+                posts: today,
+                archives: [],
+              });
+            });
           });
         }
       );
@@ -284,6 +331,8 @@ app.post("/profile/:username", (req, res) => {
             searched: true,
             value: value,
             totalFriends: accepted.length,
+            posts: [],
+            archives: [],
           });
         }
       );
@@ -291,7 +340,6 @@ app.post("/profile/:username", (req, res) => {
   );
 });
 
-//after clicking on create post
 app.get("/createposts", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
@@ -309,8 +357,66 @@ app.get("/createposts", (req, res) => {
         value: false,
         searched: false,
         results: false,
-        totalFriends: 0,
       });
+    }
+  );
+});
+
+app.post("/signup", (req, res) => {
+  const { name, username, email, password, confirmPassword, gender } = req.body;
+  let profile_pic;
+  try {
+    profile_pic = req.files.profilePicture || false;
+  } catch (e) {
+    profile_pic = false;
+  }
+  let imgpath;
+  if (!profile_pic) {
+    imgpath = "/profilepics/default.png";
+  } else {
+    imgpath = "/profilepics/" + `${username}/` + profile_pic.name;
+  }
+  if (password !== confirmPassword)
+    return res.render("signup", { message: "Passwords do not match!" });
+  db.query(
+    "select * from users where username = ?",
+    [username],
+    (err, result) => {
+      if (err) throw err;
+      if (result.length > 0)
+        return res.render("signup", { message: "Username already exists!" });
+      db.query(
+        "select * from users where email = ?",
+        [email],
+        (err, result) => {
+          if (err) throw err;
+          if (result.length > 0)
+            return res.render("signup", { message: "Email already exists!" });
+          // Insert user into database
+          db.query(
+            "insert into users (name, username, email, password, gender, imgpath) values (?,?,?,?,?,?)",
+            [name, username, email, password, gender, imgpath],
+            (err, result) => {
+              if (err) throw err;
+              if (profile_pic) {
+                profile_pic.mv(
+                  `${__dirname}/public/profilepics/${username}/${profile_pic.name}`,
+                  function (err) {
+                    if (err) return res.status(500).send(err);
+                    res.cookie("user", username, { maxAge: 3600000 });
+                    res.cookie("userimg", imgpath, { maxAge: 3600000 });
+                    res.redirect("/profile");
+                  }
+                );
+              } else {
+                res.cookie("user", username, { maxAge: 3600000 });
+                res.cookie("user", username, { maxAge: 3600000 });
+                res.redirect("/profile");
+              }
+            }
+          );
+        }
+      );
     }
   );
 });
@@ -319,26 +425,32 @@ app.get("/createposts", (req, res) => {
 app.post("/createposts", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
-  const { post } = req.body;
+  let caption = req.body.caption;
+  let posts_path = `/profilepics/${username}`;
+  let files = req.files;
+  let post = files.post;
+  posts_path = posts_path + "/" + post.name;
+  let timestamp = new Date().getTime();
   db.query(
-    "INSERT INTO createposts (username, post) VALUES (?, ?)",
-    [username, post],
+    "INSERT INTO createposts (username, postpath, postcaption, timestamp) VALUES (?, ?, ?, ?)",
+    [username, posts_path, caption, timestamp],
     (err, results) => {
       if (err) throw err;
-      req.session.searchvalue = value;
-      res.render("createposts", {
-        path: decodeURIComponent(req.cookies.userimg),
-        username: username,
-        value: value,
-        results: results,
-        searched: true,
-        totalFriends: accepted.length,
-      });
+      if (post) {
+        post.mv(
+          `${__dirname}/public/profilepics/${username}/${post.name}`,
+          function () {
+            if (err) return res.status(500).send(err);;
+            res.redirect("/profile");
+          }
+        );
+      } else {
+        res.sendStatus(404);
+      }
     }
   );
 });
 
-//send friend request
 app.post("/friend/:username", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
