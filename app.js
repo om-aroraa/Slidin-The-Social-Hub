@@ -10,7 +10,7 @@ const port = 3000;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "14351435",
+  password: "root",
   database: "slidin",
 });
 
@@ -420,6 +420,7 @@ app.post("/signup", (req, res) => {
     }
   );
 });
+
 
 //after clicking on create post
 app.post("/createposts", (req, res) => {
