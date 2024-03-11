@@ -155,29 +155,29 @@ app.get("/profile", (req, res) => {
               let current = new Date().getTime();
               new Promise((resolve, reject) => {
                 posts.forEach((post) => {
-                // Check if post is older than 24 hours
-                if (current - post.timestamp > 86400000) {
-                  archive.push(post);
-                } else {
-                  today.push(post);
-                }
-              });
-              resolve();
-            }).then(() => {
-              res.render("profile", {
-                userpath: decodeURIComponent(req.cookies.userimg),
-                path: imgpath,
-                username: username,
-                name: name,
-                results: false,
-                searched: false,
-                value: false,
-                totalFriends: accepted.length,
-                posts: today,
-                archives: archive,
+                  // Check if post is older than 24 hours
+                  if (current - post.timestamp > 86400000) {
+                    archive.push(post);
+                  } else {
+                    today.push(post);
+                  }
+                });
+                resolve();
+              }).then(() => {
+                res.render("profile", {
+                  userpath: decodeURIComponent(req.cookies.userimg),
+                  path: imgpath,
+                  username: username,
+                  name: name,
+                  results: false,
+                  searched: false,
+                  value: false,
+                  totalFriends: accepted.length,
+                  posts: today,
+                  archives: archive,
+                });
               });
             });
-          });
         }
       );
     }
@@ -228,28 +228,28 @@ app.post("/profile", (req, res) => {
               let current = new Date().getTime();
               new Promise((resolve, reject) => {
                 posts.forEach((post) => {
-                // Check if post is older than 24 hours
-                if (current - post.timestamp > 86400000) {
-                  archive.push(post);
-                } else {
-                  today.push(post);
-                }
-              });
-              resolve();
-            }).then(() => {
-              res.render("profile", {
-                userpath: decodeURIComponent(req.cookies.userimg),
-                path: imgpath,
-                username: username,
-                results: Searchresults,
-                searched: true,
-                value: value,
-                totalFriends: accepted.length,
-                posts: today,
-                archives: archive,
+                  // Check if post is older than 24 hours
+                  if (current - post.timestamp > 86400000) {
+                    archive.push(post);
+                  } else {
+                    today.push(post);
+                  }
+                });
+                resolve();
+              }).then(() => {
+                res.render("profile", {
+                  userpath: decodeURIComponent(req.cookies.userimg),
+                  path: imgpath,
+                  username: username,
+                  results: Searchresults,
+                  searched: true,
+                  value: value,
+                  totalFriends: accepted.length,
+                  posts: today,
+                  archives: archive,
+                });
               });
             });
-          });
         }
       );
     }
@@ -268,21 +268,21 @@ app.get("/profile/:username", (req, res) => {
       let imgpath = results[0].imgpath;
       let name = results[0].name;
       if (!imgpath) imgpath = "/profilepics/default.png";
-              res.render("viewprofile", {
-                userpath: decodeURIComponent(req.cookies.userimg),
-                path: imgpath,
-                username: username,
-                name: name,
-                results: false,
-                searched: false,
-                value: false,
-                posts: [],
-                archives: [],
-                totalFriends: 0,
-              });
+      res.render("viewprofile", {
+        userpath: decodeURIComponent(req.cookies.userimg),
+        path: imgpath,
+        username: username,
+        name: name,
+        results: false,
+        searched: false,
+        value: false,
+        posts: [],
+        archives: [],
+        totalFriends: 0,
+      });
       db.query(
         "SELECT * FROM friends WHERE username = ?",
-        [username], 
+        [username],
         (err, results) => {
           if (err) throw err;
           let accepted = "";
@@ -298,27 +298,27 @@ app.get("/profile/:username", (req, res) => {
               let current = new Date().getTime();
               new Promise((resolve, reject) => {
                 posts.forEach((post) => {
-                // Check if post is older than 24 hours
-                if (current - post.timestamp < 86400000) {
-                  today.push(post);
-                }
-              });
-              resolve();
-            }).then(() => {
-              res.render("viewprofile", {
-                userpath: decodeURIComponent(req.cookies.userimg),
-                path: imgpath,
-                username: username,
-                name: name,
-                results: false,
-                searched: false,
-                value: false,
-                totalFriends: accepted.length,
-                posts: today,
-                archives: [],
+                  // Check if post is older than 24 hours
+                  if (current - post.timestamp < 86400000) {
+                    today.push(post);
+                  }
+                });
+                resolve();
+              }).then(() => {
+                res.render("viewprofile", {
+                  userpath: decodeURIComponent(req.cookies.userimg),
+                  path: imgpath,
+                  username: username,
+                  name: name,
+                  results: false,
+                  searched: false,
+                  value: false,
+                  totalFriends: accepted.length,
+                  posts: today,
+                  archives: [],
+                });
               });
             });
-          });
         }
       );
     }
@@ -370,28 +370,28 @@ app.post("/profile/:username", (req, res) => {
               let current = new Date().getTime();
               new Promise((resolve, reject) => {
                 posts.forEach((post) => {
-                // Check if post is older than 24 hours
-                if (current - post.timestamp > 86400000) {
-                  archive.push(post);
-                } else {
-                  today.push(post);
-                }
-              });
-              resolve();
-            }).then(() => {
-              res.render("viewprofile", {
-                userpath: decodeURIComponent(req.cookies.userimg),
-                path: imgpath,
-                username: username,
-                results: Searchresults,
-                searched: true,
-                value: value,
-                totalFriends: accepted.length,
-                posts: today,
-                archives: archive,
+                  // Check if post is older than 24 hours
+                  if (current - post.timestamp > 86400000) {
+                    archive.push(post);
+                  } else {
+                    today.push(post);
+                  }
+                });
+                resolve();
+              }).then(() => {
+                res.render("viewprofile", {
+                  userpath: decodeURIComponent(req.cookies.userimg),
+                  path: imgpath,
+                  username: username,
+                  results: Searchresults,
+                  searched: true,
+                  value: value,
+                  totalFriends: accepted.length,
+                  posts: today,
+                  archives: archive,
+                });
               });
             });
-          });
         }
       );
     }
