@@ -133,7 +133,7 @@
         </div>
         <div class="search-container" id="s-c" style="display: none;">
             <h2>Search</h2>
-            <form action="/profile" method="post" enctype="multipart/form-data" id="searchForm">
+            <form action="/profile/<%= username %>" method="post" enctype="multipart/form-data" id="searchForm">
                 <div class="search-input-container">
                     <input type="text" id="search" placeholder="&#x1F50E;&#xFE0E; Search.." name="value"
                         oninput="submitForm(event)" <% if (value){ %>

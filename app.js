@@ -169,7 +169,7 @@ app.get("/profile", (req, res) => {
                 path: imgpath,
                 username: username,
                 name: name,
-                results: today,
+                results: false,
                 searched: false,
                 value: false,
                 totalFriends: accepted.length,
@@ -187,27 +187,23 @@ app.get("/profile", (req, res) => {
 app.post("/profile", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
+
   const { value } = req.body;
   let imgpath = decodeURIComponent(req.cookies.userimg);
   if (!imgpath) imgpath = "/profilepics/default.png";
+
   if (value === "") {
-    return res.render("profile", {
-      userpath: decodeURIComponent(req.cookies.userimg),
-      path: imgpath,
-      username: username,
-      results: false,
-      searched: false,
-      value: false,
-      totalFriends: 0,
-      posts: [],
-      archives: [],
-    });
+    // Handle the case where the search value is empty
+    return res.redirect("/profile");
   }
+
+  // Fetch users matching the search value
   db.query(
     "SELECT username, imgpath FROM users WHERE username LIKE ?",
     [value + "%"],
-    (err, results) => {
+    (err, Searchresults) => {
       if (err) throw err;
+      // Fetch friend data
       db.query(
         "SELECT accepted FROM friends WHERE username = ?",
         [username],
@@ -217,17 +213,42 @@ app.post("/profile", (req, res) => {
           if (friendResults.length === 0) accepted = "";
           else accepted = friendResults[0].accepted.split(",");
           if (accepted[0] === "") accepted = [];
-          req.session.searchvalue = value;
-          res.render("profile", {
-            userpath: decodeURIComponent(req.cookies.userimg),
-            path: imgpath,
-            username: username,
-            results: results,
-            searched: true,
-            value: value,
-            totalFriends: accepted.length,
-            posts: [],
-            archives: [],
+
+          let currentUser = req.cookies.user;
+
+          // Fetch posts of current user
+          db.query(
+            "SELECT * FROM createposts WHERE username = ?",
+            [currentUser],
+            (err, results) => {
+              if (err) throw err;
+              let posts = results;
+              let today = [];
+              let archive = [];
+              let current = new Date().getTime();
+              new Promise((resolve, reject) => {
+                posts.forEach((post) => {
+                // Check if post is older than 24 hours
+                if (current - post.timestamp > 86400000) {
+                  archive.push(post);
+                } else {
+                  today.push(post);
+                }
+              });
+              resolve();
+            }).then(() => {
+              res.render("profile", {
+                userpath: decodeURIComponent(req.cookies.userimg),
+                path: imgpath,
+                username: username,
+                results: Searchresults,
+                searched: true,
+                value: value,
+                totalFriends: accepted.length,
+                posts: today,
+                archives: archive,
+              });
+            });
           });
         }
       );
@@ -247,9 +268,21 @@ app.get("/profile/:username", (req, res) => {
       let imgpath = results[0].imgpath;
       let name = results[0].name;
       if (!imgpath) imgpath = "/profilepics/default.png";
+              res.render("viewprofile", {
+                userpath: decodeURIComponent(req.cookies.userimg),
+                path: imgpath,
+                username: username,
+                name: name,
+                results: false,
+                searched: false,
+                value: false,
+                posts: [],
+                archives: [],
+                totalFriends: 0,
+              });
       db.query(
         "SELECT * FROM friends WHERE username = ?",
-        [username],
+        [username], 
         (err, results) => {
           if (err) throw err;
           let accepted = "";
@@ -259,6 +292,7 @@ app.get("/profile/:username", (req, res) => {
             "SELECT * FROM createposts WHERE username = ?", [username],
             (err, results) => {
               if (err) throw err;
+              let result;
               let posts = results;
               let today = [];
               let current = new Date().getTime();
@@ -276,7 +310,7 @@ app.get("/profile/:username", (req, res) => {
                 path: imgpath,
                 username: username,
                 name: name,
-                results: today,
+                results: false,
                 searched: false,
                 value: false,
                 totalFriends: accepted.length,
@@ -291,28 +325,27 @@ app.get("/profile/:username", (req, res) => {
   );
 });
 
+
 app.post("/profile/:username", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
+
   const { value } = req.body;
   let imgpath = decodeURIComponent(req.cookies.userimg);
   if (!imgpath) imgpath = "/profilepics/default.png";
+
   if (value === "") {
-    return res.render("viewprofile", {
-      userpath: decodeURIComponent(req.cookies.userimg),
-      path: imgpath,
-      username: username,
-      results: false,
-      searched: false,
-      value: false,
-      totalFriends: 0,
-    });
+    // Handle the case where the search value is empty
+    return res.redirect("/viewprofile/" + username);
   }
+
+  // Fetch users matching the search value
   db.query(
     "SELECT username, imgpath FROM users WHERE username LIKE ?",
     [value + "%"],
-    (err, results) => {
+    (err, Searchresults) => {
       if (err) throw err;
+      // Fetch friend data
       db.query(
         "SELECT accepted FROM friends WHERE username = ?",
         [username],
@@ -322,17 +355,42 @@ app.post("/profile/:username", (req, res) => {
           if (friendResults.length === 0) accepted = "";
           else accepted = friendResults[0].accepted.split(",");
           if (accepted[0] === "") accepted = [];
-          req.session.searchvalue = value;
-          res.render("viewprofile", {
-            userpath: decodeURIComponent(req.cookies.userimg),
-            path: imgpath,
-            username: username,
-            results: results,
-            searched: true,
-            value: value,
-            totalFriends: accepted.length,
-            posts: [],
-            archives: [],
+
+          let currentUser = req.cookies.user;
+
+          // Fetch posts of current user
+          db.query(
+            "SELECT * FROM createposts WHERE username = ?",
+            [currentUser],
+            (err, results) => {
+              if (err) throw err;
+              let posts = results;
+              let today = [];
+              let archive = [];
+              let current = new Date().getTime();
+              new Promise((resolve, reject) => {
+                posts.forEach((post) => {
+                // Check if post is older than 24 hours
+                if (current - post.timestamp > 86400000) {
+                  archive.push(post);
+                } else {
+                  today.push(post);
+                }
+              });
+              resolve();
+            }).then(() => {
+              res.render("viewprofile", {
+                userpath: decodeURIComponent(req.cookies.userimg),
+                path: imgpath,
+                username: username,
+                results: Searchresults,
+                searched: true,
+                value: value,
+                totalFriends: accepted.length,
+                posts: today,
+                archives: archive,
+              });
+            });
           });
         }
       );
@@ -362,67 +420,6 @@ app.get("/createposts", (req, res) => {
   );
 });
 
-app.post("/signup", (req, res) => {
-  const { name, username, email, password, confirmPassword, gender } = req.body;
-  let profile_pic;
-  try {
-    profile_pic = req.files.profilePicture || false;
-  } catch (e) {
-    profile_pic = false;
-  }
-  let imgpath;
-  if (!profile_pic) {
-    imgpath = "/profilepics/default.png";
-  } else {
-    imgpath = "/profilepics/" + `${username}/` + profile_pic.name;
-  }
-  if (password !== confirmPassword)
-    return res.render("signup", { message: "Passwords do not match!" });
-  db.query(
-    "select * from users where username = ?",
-    [username],
-    (err, result) => {
-      if (err) throw err;
-      if (result.length > 0)
-        return res.render("signup", { message: "Username already exists!" });
-      db.query(
-        "select * from users where email = ?",
-        [email],
-        (err, result) => {
-          if (err) throw err;
-          if (result.length > 0)
-            return res.render("signup", { message: "Email already exists!" });
-          // Insert user into database
-          db.query(
-            "insert into users (name, username, email, password, gender, imgpath) values (?,?,?,?,?,?)",
-            [name, username, email, password, gender, imgpath],
-            (err, result) => {
-              if (err) throw err;
-              if (profile_pic) {
-                profile_pic.mv(
-                  `${__dirname}/public/profilepics/${username}/${profile_pic.name}`,
-                  function (err) {
-                    if (err) return res.status(500).send(err);
-                    res.cookie("user", username, { maxAge: 3600000 });
-                    res.cookie("userimg", imgpath, { maxAge: 3600000 });
-                    res.redirect("/profile");
-                  }
-                );
-              } else {
-                res.cookie("user", username, { maxAge: 3600000 });
-                res.cookie("user", username, { maxAge: 3600000 });
-                res.redirect("/profile");
-              }
-            }
-          );
-        }
-      );
-    }
-  );
-});
-
-
-//after clicking on create post
 app.post("/createposts", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
