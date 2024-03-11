@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/public/css/create.css">
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="create-container">
+        <div class="sidebar-1">
+            <div class="sidebar-items">
+                <div class="icon-text profile-container">
+                    <div class=""><a href=""><img class="avatar" src="/imgs/vilgax.png" alt="">
+                            <div class=""><span class="span-text-nav">Slidin'</span></div> 
+                        </a>
+                    </div>
+                </div>
+                <a href="">
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+                        <div class=""><span class="span-text-nav">Home</span></div>
+
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                            <span class="span-text-nav">Search</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/createposts">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-circle-plus"></i> </div>
+                        <div class=""><span class="span-text-nav">Create</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-comment"></i> </div>
+                        <div class=""><span class="span-text-nav">Chat</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-heart"></i></div>
+                        <div class=""><span class="span-text-nav">Notifications</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-gear"></i></div>
+                        <div class=""><span class="span-text-nav">Settings</span></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div class=""><img class="avatar" src="<%= path %>" alt=""></div>
+                        <div class=""><span class="span-text-nav">Profile</span></div>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-2" id="sidebar2">
+            <!-- Additional HTML content for sidebar 2 -->
+            <div class="sidebar-items">
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div class=""><img class="avatar" src="/imgs/vilgax.png" alt="">
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </a>
+                <a href="createposts">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-circle-plus"></i> </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-comment"></i> </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-heart"></i></div>
+                    </div>
+                </a>
+
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-gear"></i></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div id="image-container">
+                            <img id="profile-image" src="<%= path %>" alt="" srcset="" />
+                            <div id="crop-preview"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="search-container" id="s-c" style="display: none;">
+            <h2>Search</h2>
+            <form action="/profile" method="post" enctype="multipart/form-data" id="searchForm">
+                <div class="search-input-container">
+                    <input type="text" id="search" placeholder="&#x1F50E;&#xFE0E; Search.." name="value"
+                        oninput="submitForm(event)" <% if (value){ %>
+                    value="<%= value %>"
+                        <% } %>>
+                </div>
+            </form>
+            <div class="search-results">
+                <!-- Placeholder content for search results -->
+                <ul>
+                    <% if (results) { %>
+                        <% results.forEach(function(result) { %>
+                            <li>
+                                <div class="card">
+                                    <a href="/profile/<%= result.username %>">
+                                        <div class="card_load">
+                                            <img id="search-profilepics" src="<%= result.imgpath %>" alt="Profile Pic">
+                                        </div>
+                                        <div class="card_load_extreme_title">
+                                            <span>
+                                                <%= result.username %>
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <div class="card_load_extreme_descripion">
+                                        <form action="/friend/<%=result.username%>" method="post"
+                                            enctype="multipart/form-data">
+                                            <button>Add Friend</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            <% }) %>
+                                <% } %>
+                </ul>
+            </div>
+        </div>
+        <div class="create-1">
+            <div class="create-main">
+                <div class="create-box">
+                    <div class="create-header">
+                        <h3>Create Post</h3>
+                    </div>
+                    <div class="create-body">
+                        <svg width="150px" height="150px" viewBox="0 0 1024.00 1024.00" class="icon" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" fill="#000000"
+                            transform="rotate(0)matrix(1, 0, 0, 1, 0, 0)">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
+                                stroke="#CCCCCC" stroke-width="79.872">
+                                <path
+                                    d="M732.1 399.3C534.6 356 696.5 82.1 425.9 104.8s-527.2 645.8-46.8 791.7 728-415 353-497.2z"
+                                    fill="#000000"></path>
+                                <path
+                                    d="M695.5 779.5c-5.7 0-11.3-0.8-16.9-2.3l-402-112.4c-16.1-4.5-29.4-15-37.6-29.5a62 62 0 0 1-5.7-47.5l65-232.6a62.64 62.64 0 0 1 60.1-45.4c5.7 0 11.3 0.8 16.9 2.3L508 349.2c0.3 0.1 0.6 0.1 1 0.1 1.2 0 2.3-0.6 2.9-1.6l21.3-31.5c7.5-11.1 20-17.7 33.4-17.7 3.7 0 7.4 0.5 11 1.5L695 332.9a40.03 40.03 0 0 1 29.5 36.8l1.9 37.6c0.1 1.6 1.1 2.9 2.6 3.3l48.2 13.5c16.1 4.5 29.4 15 37.6 29.5a62 62 0 0 1 5.7 47.5l-65 232.6c-7.4 27-32.1 45.8-60 45.8z"
+                                    fill="#FFFFFF"></path>
+                                <path
+                                    d="M566.5 306c3 0 6 0.4 9 1.3L693 340.1a32.87 32.87 0 0 1 24.1 30l1.9 37.7a11 11 0 0 0 8 10.1l48.2 13.5a55.03 55.03 0 0 1 38.2 67.8l-65.1 232.6a55.06 55.06 0 0 1-53 40.2c-4.9 0-9.9-0.7-14.9-2l-402-112.4a55.03 55.03 0 0 1-38.2-67.8l65.1-232.6c6.9-24.2 28.9-40 52.9-40 4.9 0 9.9 0.7 14.9 2l132.7 37.1c1 0.3 2 0.4 3 0.4 3.6 0 7.1-1.8 9.1-4.9l21.3-31.4c6.3-9.2 16.5-14.4 27.3-14.4m0-14.9c-15.9 0-30.6 7.8-39.5 21l-19.7 29.2L377.4 305c-6.2-1.7-12.5-2.6-18.9-2.6a70.4 70.4 0 0 0-41.8 13.9c-12.4 9.2-21.2 22-25.5 36.9v0.1l-65.1 232.6c-10.4 37.1 11.4 75.8 48.5 86.2l402 112.4c6.2 1.7 12.5 2.6 18.9 2.6 31.2 0 58.9-21 67.3-51.1l65-232.6c5-18 2.8-36.9-6.4-53.1-9.2-16.3-24.1-28-42.1-33l-45.5-12.7-1.8-34.9a47.6 47.6 0 0 0-35-43.6l-117.5-32.9a39.3 39.3 0 0 0-13-2.1z"
+                                    fill="#151B28"></path>
+                                <path
+                                    d="M686 365.2c2.9 0.8 4.9 3.3 5 6.3l1.9 37.6c0.4 16.2 11.3 30.2 26.9 34.6l48.2 13.5a28.98 28.98 0 0 1 20.1 35.7l-65 232.6c-4.6 15-20.4 23.6-35.5 19.3l-402-112.4a28.98 28.98 0 0 1-20.1-35.7l65.1-232.6a28.87 28.87 0 0 1 35.6-19.8l132.7 37.1c15.6 4.3 32.2-2 40.9-15.6l21-30.7c1.6-2.5 4.7-3.6 7.5-2.8L686 365.2"
+                                    fill="#00ffcc"></path>
+                                <path
+                                    d="M597.6 454.5c56.2 15.7 89 74 73.3 130.2-15.7 56.2-74 89-130.2 73.3-56.2-15.7-89-74-73.3-130.2 15.9-56.1 74-88.8 130.2-73.3m7-25.1c-70.1-19.6-142.8 21.3-162.3 91.4-19.6 70.1 21.3 142.8 91.4 162.3 70.1 19.6 142.8-21.3 162.3-91.4 19.5-70-21.4-142.6-91.4-162.3z m0 0"
+                                    fill=""></path>
+                                <path
+                                    d="M580.1 513.2a50.39 50.39 0 0 1-27 97.1 50.44 50.44 0 0 1-35.2-61.9 50.5 50.5 0 0 1 62.2-35.2"
+                                    fill="#000000"></path>
+                                <path
+                                    d="M568.1 635.9c-28.9 0-55.7-15.6-70-41.4a79.69 79.69 0 0 1 7.6-88.8c20.4-25.4 53.8-36 85-26.8 42 12.3 66.5 56.6 54.6 98.7-8.9 31.4-35.5 54-67.9 57.8-3.1 0.3-6.2 0.5-9.3 0.5z m0-136c-16.7 0-32.7 7.5-43.5 21a55.6 55.6 0 0 0-5.3 61.9c11 19.9 32.7 31.1 55.3 28.5a55.45 55.45 0 0 0 47.3-40.3c8.3-29.4-8.8-60.2-38-68.8-5.2-1.6-10.5-2.3-15.8-2.3zM441.2 310.6L391 296.5c-6.9-1.9-11-9.1-9-16.1 1.9-6.9 9.1-11 16.1-9l50.2 14.1c6.9 1.9 11 9.1 9 16.1-1.9 6.9-9.1 10.9-16.1 9z m0 0M413.5 409.8l-50.2-14.1c-6.9-1.9-11-9.1-9-16.1 1.9-6.9 9.1-11 16.1-9.1l50.2 14.1c6.9 1.9 11 9.1 9 16.1-2 7-9.2 11.1-16.1 9.1z m0 0"
+                                    fill=""></path>
+                            </g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M732.1 399.3C534.6 356 696.5 82.1 425.9 104.8s-527.2 645.8-46.8 791.7 728-415 353-497.2z"
+                                    fill="#000000"></path>
+                                <path
+                                    d="M695.5 779.5c-5.7 0-11.3-0.8-16.9-2.3l-402-112.4c-16.1-4.5-29.4-15-37.6-29.5a62 62 0 0 1-5.7-47.5l65-232.6a62.64 62.64 0 0 1 60.1-45.4c5.7 0 11.3 0.8 16.9 2.3L508 349.2c0.3 0.1 0.6 0.1 1 0.1 1.2 0 2.3-0.6 2.9-1.6l21.3-31.5c7.5-11.1 20-17.7 33.4-17.7 3.7 0 7.4 0.5 11 1.5L695 332.9a40.03 40.03 0 0 1 29.5 36.8l1.9 37.6c0.1 1.6 1.1 2.9 2.6 3.3l48.2 13.5c16.1 4.5 29.4 15 37.6 29.5a62 62 0 0 1 5.7 47.5l-65 232.6c-7.4 27-32.1 45.8-60 45.8z"
+                                    fill="#FFFFFF"></path>
+                                <path
+                                    d="M566.5 306c3 0 6 0.4 9 1.3L693 340.1a32.87 32.87 0 0 1 24.1 30l1.9 37.7a11 11 0 0 0 8 10.1l48.2 13.5a55.03 55.03 0 0 1 38.2 67.8l-65.1 232.6a55.06 55.06 0 0 1-53 40.2c-4.9 0-9.9-0.7-14.9-2l-402-112.4a55.03 55.03 0 0 1-38.2-67.8l65.1-232.6c6.9-24.2 28.9-40 52.9-40 4.9 0 9.9 0.7 14.9 2l132.7 37.1c1 0.3 2 0.4 3 0.4 3.6 0 7.1-1.8 9.1-4.9l21.3-31.4c6.3-9.2 16.5-14.4 27.3-14.4m0-14.9c-15.9 0-30.6 7.8-39.5 21l-19.7 29.2L377.4 305c-6.2-1.7-12.5-2.6-18.9-2.6a70.4 70.4 0 0 0-41.8 13.9c-12.4 9.2-21.2 22-25.5 36.9v0.1l-65.1 232.6c-10.4 37.1 11.4 75.8 48.5 86.2l402 112.4c6.2 1.7 12.5 2.6 18.9 2.6 31.2 0 58.9-21 67.3-51.1l65-232.6c5-18 2.8-36.9-6.4-53.1-9.2-16.3-24.1-28-42.1-33l-45.5-12.7-1.8-34.9a47.6 47.6 0 0 0-35-43.6l-117.5-32.9a39.3 39.3 0 0 0-13-2.1z"
+                                    fill="#151B28"></path>
+                                <path
+                                    d="M686 365.2c2.9 0.8 4.9 3.3 5 6.3l1.9 37.6c0.4 16.2 11.3 30.2 26.9 34.6l48.2 13.5a28.98 28.98 0 0 1 20.1 35.7l-65 232.6c-4.6 15-20.4 23.6-35.5 19.3l-402-112.4a28.98 28.98 0 0 1-20.1-35.7l65.1-232.6a28.87 28.87 0 0 1 35.6-19.8l132.7 37.1c15.6 4.3 32.2-2 40.9-15.6l21-30.7c1.6-2.5 4.7-3.6 7.5-2.8L686 365.2"
+                                    fill="#00ffcc"></path>
+                                <path
+                                    d="M597.6 454.5c56.2 15.7 89 74 73.3 130.2-15.7 56.2-74 89-130.2 73.3-56.2-15.7-89-74-73.3-130.2 15.9-56.1 74-88.8 130.2-73.3m7-25.1c-70.1-19.6-142.8 21.3-162.3 91.4-19.6 70.1 21.3 142.8 91.4 162.3 70.1 19.6 142.8-21.3 162.3-91.4 19.5-70-21.4-142.6-91.4-162.3z m0 0"
+                                    fill=""></path>
+                                <path
+                                    d="M580.1 513.2a50.39 50.39 0 0 1-27 97.1 50.44 50.44 0 0 1-35.2-61.9 50.5 50.5 0 0 1 62.2-35.2"
+                                    fill="#000000"></path>
+                                <path
+                                    d="M568.1 635.9c-28.9 0-55.7-15.6-70-41.4a79.69 79.69 0 0 1 7.6-88.8c20.4-25.4 53.8-36 85-26.8 42 12.3 66.5 56.6 54.6 98.7-8.9 31.4-35.5 54-67.9 57.8-3.1 0.3-6.2 0.5-9.3 0.5z m0-136c-16.7 0-32.7 7.5-43.5 21a55.6 55.6 0 0 0-5.3 61.9c11 19.9 32.7 31.1 55.3 28.5a55.45 55.45 0 0 0 47.3-40.3c8.3-29.4-8.8-60.2-38-68.8-5.2-1.6-10.5-2.3-15.8-2.3zM441.2 310.6L391 296.5c-6.9-1.9-11-9.1-9-16.1 1.9-6.9 9.1-11 16.1-9l50.2 14.1c6.9 1.9 11 9.1 9 16.1-1.9 6.9-9.1 10.9-16.1 9z m0 0M413.5 409.8l-50.2-14.1c-6.9-1.9-11-9.1-9-16.1 1.9-6.9 9.1-11 16.1-9.1l50.2 14.1c6.9 1.9 11 9.1 9 16.1-2 7-9.2 11.1-16.1 9.1z m0 0"
+                                    fill=""></path>
+                            </g>
+                        </svg>
+                        <p>Drag Your Photos videos here</p>
+
+                        <form action="/createposts" method="post" enctype="multipart/form-data">
+                            <div class="create-input-container">
+                                <input oninput="toggleCreate()" type="file" name="image" id="image" accept="image/*"
+                                    style="display: none;">
+                                <span id="fileTrigger" onclick="document.getElementById('image').click()">Select from
+                                    computer</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="create-2">
+            <div class="create-main">
+                <div class="create-box">
+                    <div class="create-header">
+                        <i onclick="toggleCreate2()" class="fa-solid fa-arrow-left"></i>
+                        <h3>Crop and Post</h3>
+                    </div>
+                    <div class="create-body">
+                        <div class="crop-container">
+                            <div class="img-crop">
+                                <img src="/public/imgs/banner2.webp" alt="">
+                                <div class="options-crop">
+                                    
+                                    <div class="span-crop2"><i class="fa-solid fa-expand"  id="expandIcon"></i><span></span></div>
+                                    <div style="display: none;" class="span-crop" ><i class="fa-solid fa-crop-simple"></i><span>16:1</span></div>
+                                    <div style="display: none;" class="span-crop" ><i class="fa-solid fa-crop-simple"></i><span>4:5</span></div>
+                                    <div style="display: none;" class="span-crop" ><i class="fa-solid fa-crop-simple"></i><span>1:1</span></div>
+                                    <div style="display: none;" class="span-crop"><i class="fa-solid fa-crop-simple"></i><span>Original</span></div>
+                             
+                                </div>
+                            </div>
+                            <form action="">
+                                <input type="text" name="" id="" maxlength="200"
+                                    placeholder="Enter Caption for Your image">
+                                <button class="post-btn" type="submit">Post</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            // Hide sidebar 1
+            var sidebar1 = document.querySelector('.sidebar-1');
+            if (sidebar1.style.display === 'none') {
+                sidebar1.style.display = 'block';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'none';
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'none';
+            } else {
+                sidebar1.style.display = 'none';
+                sidebar1.style.display = 'none';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'block';
+
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'block';
+            }
+        }
+
+        //  a function to toggle between create-1 after clicking on image and create-2 after clicking on the back button
+        function toggleCreate() {
+            var create1 = document.querySelector('.create-1');
+            var create2 = document.querySelector('.create-2');
+            if (create1.style.display === 'flex') {
+
+                create2.style.display = 'none';
+            } else {
+                create1.style.display = 'none';
+                create2.style.display = 'flex';
+            }
+        }
+
+        function toggleCreate2() {
+            var create1 = document.querySelector('.create-1');
+            var create2 = document.querySelector('.create-2');
+            if (create2.style.display === 'flex') {
+                create1.style.display = 'block';
+                create2.style.display = 'none';
+            }
+        }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const expandIcon = document.getElementById('expandIcon');
+        const spanCropItems = document.querySelectorAll('.options-crop .span-crop');
+
+        expandIcon.addEventListener('click', function (event) {
+            event.stopPropagation(); // Prevents the event from bubbling up to the document
+
+            spanCropItems.forEach(option => {
+                if (option !== expandIcon.parentElement) {
+                    option.style.display = option.style.display === 'none' ? 'flex' : 'none';
+                }
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            const targetElement = event.target;
+            if (!document.querySelector('.options-crop').contains(targetElement)) {
+                spanCropItems.forEach(option => {
+                    option.style.display = 'none';
+                });
+            }
+        });
+    });
+
+        
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+            const expandIcon = document.getElementById('expandIcon');
+            const cropOptions = document.querySelectorAll('.options-crop .span-crop');
+
+            let optionsVisible = false;
+
+            expandIcon.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevents the event from bubbling up to the document
+
+                optionsVisible = !optionsVisible;
+
+                cropOptions.forEach(option => {
+                    if (option !== expandIcon.parentElement) {
+                        option.style.display = optionsVisible ? 'flex' : 'none';
+                    }
+                });
+            });
+
+            cropOptions.forEach(option => {
+                option.addEventListener('click', function () {
+                    const aspectRatio = this.querySelector('span').textContent;
+                    if (aspectRatio === 'Original') {
+                        // Handle Original option
+                    } else {
+                        // Initialize Cropper with selected aspect ratio
+                    }
+                });
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!expandIcon.contains(event.target)) {
+                    optionsVisible = false;
+                    cropOptions.forEach(option => {
+                        option.style.display = 'none';
+                    });
+                }
+            });
+        });
+
+
+
+        function cropImage(imageUrl, x, y, width, height) {
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                var img = new Image();
+
+                // Load the image
+                img.onload = function () {
+                    // Set canvas dimensions to cropped size
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    // Draw the image on the canvas
+                    context.drawImage(img, x, y, width, height, 0, 0, width, height);
+
+                    // Get image data from canvas
+                    var imageData = context.getImageData(0, 0, width, height);
+                    var data = imageData.data;
+
+                    // Iterate through each pixel
+                    for (var i = 0; i < data.length; i += 4) {
+                        // Check if pixel is fully transparent
+                        if (data[i + 3] === 0) {
+                            // If pixel is transparent, set its color to white
+                            data[i] = 255;    // Red
+                            data[i + 1] = 255; // Green
+                            data[i + 2] = 255; // Blue
+                            data[i + 3] = 255; // Alpha
+                        }
+                    }
+
+                    // Clear the canvas
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Put modified image data back onto the canvas
+                    context.putImageData(imageData, 0, 0);
+
+                    // Convert canvas to data URL
+                    var croppedImageUrl = canvas.toDataURL('image/png');
+
+                    // Do something with the cropped image URL (e.g., display it or upload it)
+                    console.log(croppedImageUrl);
+                };
+
+                // Set image source
+                img.src = imageUrl;
+            }
+
+            // Example usage:
+            // cropImage('path_to_your_image.jpg', x, y, width, height);
+            // Replace 'path_to_your_image.jpg' with the URL or local path to your image
+            // Replace x, y, width, height with the coordinates and dimensions of the crop area
+
+    </script>
+</body>
+
+</html>

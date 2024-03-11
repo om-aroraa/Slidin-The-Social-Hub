@@ -1,0 +1,434 @@
+body {
+    background-color: #f5f5f5;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    /* Corrected typo from 100lvh to 100vh */
+    overflow: hidden;
+
+}
+
+.create-container {
+    display: grid;
+    grid-template-columns: 15% auto;
+    grid-template-rows: 100vh;
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+
+
+.search-container {
+    position: fixed;
+    top: 0;
+    left: 115px;
+    width: 350px;
+    height: 100vh;
+    padding: 20px;
+    background-color: #fff;
+    z-index: 2;
+}
+
+.sidebar-1,
+.sidebar-2 {
+    background-color: #00bfff;
+    transition: transform 0.5s ease;
+    /* Adjust duration and timing function */
+}
+
+
+
+.sidebar-2 {
+    grid-column: 1;
+    /* Sidebar 2 also takes the first column */
+    display: none;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    background-color: #4a4a4a;
+    width: auto;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0px;
+    /* Move it to the right to make space for sidebar-1 */
+    z-index: 1;
+    /* Ensure it's above search-container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    padding: 20px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    height: 100%;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+    height: 3.8em;
+    padding: 0 20px;
+    border-radius: 20px;
+}
+
+.icon-text:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.icon-text i {
+    font-size: 25px;
+    margin-right: 15px;
+}
+
+.logo {
+    margin: 40px 0;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-1 .logo h2 {
+    margin: 10px 0 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.sidebar-1 .nav {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.sidebar-items a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+}
+
+.sidebar-items {
+    color: #333;
+    font-size: 18px;
+}
+
+.span-text-nav {
+    margin-left: 20px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.profile-container img {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+}
+
+.profile-container a {
+    display: flex;
+    align-items: center;
+}
+
+#search {
+    width: calc(100% - 30px);
+    /* Adjust width for the button */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#search::placeholder {
+    color: #aaa;
+}
+
+.card {
+    position: absolute;
+    width: 220px;
+    height: 50px;
+    background: #ffff;
+    box-shadow: 0 1px 25px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    transform: translate(35%, -58%);
+    padding: 5px 10px;
+    z-index: 1;
+}
+
+#search-profilepics {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    float: left;
+    border-radius: 50%;
+    background-size: 200% 100%;
+    background-position: 50% 0;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.card_load {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    float: left;
+    /* background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%); */
+    background: #ff000000;
+    border-radius: 50%;
+    background-size: 200% 100%;
+    background-position: 50% 0;
+    animation: load89234 2s infinite;
+}
+
+.card_load_extreme_title {
+    width: 117px;
+    height: 17px;
+    position: relative;
+    float: right;
+    border-radius: 4px;
+    background: rgba(245, 245, 220, 0);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: load89234 2s infinite;
+    margin-right: 26px;
+}
+
+.card_load_extreme_descripion {
+    width: 90px;
+    height: 25px;
+    position: relative;
+    float: right;
+    border-radius: 5px;
+    background: rgba(245, 245, 220, 0);
+    margin-top: 7px;
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: load89234 2s infinite;
+}
+
+
+ul {
+    list-style-type: none;
+    position: absolute;
+    z-index: 1;
+}
+
+li {
+    padding: 31px;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 768px) {
+    .search-container {
+        width: 40%;
+        /* Adjust width for smaller screens */
+        left: 30%;
+        /* Center the search container horizontally */
+        transform: translateX(-50%);
+        /* Center the search container horizontally */
+        max-width: 200px;
+        /* Limit maximum width */
+        transition: all 0.3s ease;
+    }
+}
+
+
+
+.create-main {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+.create-box {
+    box-sizing: border-box;
+    /* min-width: 50%; */
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background-color: #3f3f3f;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.create-header h3 {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.create-body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#create-body {
+    text-align: center;
+    /* Center align the content */
+}
+
+#fileTrigger {
+    position: relative;
+    /* Position relative for proper positioning of the span */
+    display: inline-block;
+    /* Display as inline-block to only take up the necessary space */
+}
+
+
+
+#fileTrigger {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+
+}
+
+#fileTrigger:hover {
+    background-color: #0056b3;
+    /* Change color of the span when hovering */
+}
+
+
+
+/* ================================================= */
+.crop-container {
+    width: auto;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    /* align at center */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+    position: relative;
+
+}
+
+.img-crop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: -50px;
+    z-index: 1;
+}
+
+.img-crop img {
+    grid-column: 1;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+    float: left;
+    border-right: #007bff 2px solid;
+    padding-right: 20px;
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+
+
+.span-crop, .span-crop2 {
+    font-size: x-large;
+    background: #373737c0;
+
+}
+
+.options-crop {
+    display: flex;
+    justify-content: left;
+    flex-direction: column-reverse;
+    height: auto;
+    position: absolute;
+    width: max-content;
+    bottom: 0px;
+    left: 0;
+    font-size: 15px;
+    z-index: 5;
+}
+
+
+
+
+form {
+    grid-column: 2;
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 20px;
+}
+
+form input {
+    padding: 20px;
+    margin: 10px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.post-btn {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.post-btn:hover {
+    background-color: #0056b3;
+    /* Change color of the button when hovering */
+}
+
