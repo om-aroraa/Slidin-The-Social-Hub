@@ -137,6 +137,12 @@ app.get("/profile", (req, res) => {
       let name = results[0].name;
       if (!imgpath) imgpath = "/profilepics/default.png";
       db.query(
+        "SELECT COUNT(*) AS postCount FROM createposts WHERE username = ?",
+        [username],
+        (err, postResults) => {
+          if (err) throw err;
+          let postCount = postResults[0].postCount;
+      db.query(
         "SELECT * FROM friends WHERE username = ?",
         [username],
         (err, results) => {
@@ -175,9 +181,11 @@ app.get("/profile", (req, res) => {
                   totalFriends: accepted.length,
                   posts: today,
                   archives: archive,
+                  postCount: postCount
                 });
               });
             });
+          });
         }
       );
     }
@@ -203,6 +211,12 @@ app.post("/profile", (req, res) => {
     [value + "%"],
     (err, Searchresults) => {
       if (err) throw err;
+      db.query(
+        "SELECT COUNT(*) AS postCount FROM createposts WHERE username = ?",
+        [username],
+        (err, postResults) => {
+          if (err) throw err;
+          let postCount = postResults[0].postCount;
       // Fetch friend data
       db.query(
         "SELECT accepted FROM friends WHERE username = ?",
@@ -247,9 +261,11 @@ app.post("/profile", (req, res) => {
                   totalFriends: accepted.length,
                   posts: today,
                   archives: archive,
+                  postCount: postCount
                 });
               });
             });
+          });
         }
       );
     }
@@ -268,63 +284,64 @@ app.get("/profile/:username", (req, res) => {
       let imgpath = results[0].imgpath;
       let name = results[0].name;
       if (!imgpath) imgpath = "/profilepics/default.png";
-      res.render("viewprofile", {
-        userpath: decodeURIComponent(req.cookies.userimg),
-        path: imgpath,
-        username: username,
-        name: name,
-        results: false,
-        searched: false,
-        value: false,
-        posts: [],
-        archives: [],
-        totalFriends: 0,
-      });
+      
+      // Query to count the number of posts for the user
       db.query(
-        "SELECT * FROM friends WHERE username = ?",
+        "SELECT COUNT(*) AS postCount FROM createposts WHERE username = ?",
         [username],
-        (err, results) => {
+        (err, postResults) => {
           if (err) throw err;
-          let accepted = "";
-          if (results.length !== 0) accepted = results[0].accepted.split(",");
-          if (accepted[0] === "") accepted = [];
+          let postCount = postResults[0].postCount; // Extract the post count from the query result
+          
           db.query(
-            "SELECT * FROM createposts WHERE username = ?", [username],
+            "SELECT * FROM friends WHERE username = ?",
+            [username],
             (err, results) => {
               if (err) throw err;
-              let result;
-              let posts = results;
-              let today = [];
-              let current = new Date().getTime();
-              new Promise((resolve, reject) => {
-                posts.forEach((post) => {
-                  // Check if post is older than 24 hours
-                  if (current - post.timestamp < 86400000) {
-                    today.push(post);
-                  }
-                });
-                resolve();
-              }).then(() => {
-                res.render("viewprofile", {
-                  userpath: decodeURIComponent(req.cookies.userimg),
-                  path: imgpath,
-                  username: username,
-                  name: name,
-                  results: false,
-                  searched: false,
-                  value: false,
-                  totalFriends: accepted.length,
-                  posts: today,
-                  archives: [],
-                });
-              });
-            });
+              let accepted = "";
+              if (results.length !== 0) accepted = results[0].accepted.split(",");
+              if (accepted[0] === "") accepted = [];
+              
+              db.query(
+                "SELECT * FROM createposts WHERE username = ?", [username],
+                (err, results) => {
+                  if (err) throw err;
+                  let result;
+                  let posts = results;
+                  let today = [];
+                  let current = new Date().getTime();
+                  new Promise((resolve, reject) => {
+                    posts.forEach((post) => {
+                      // Check if post is older than 24 hours
+                      if (current - post.timestamp < 86400000) {
+                        today.push(post);
+                      }
+                    });
+                    resolve();
+                  }).then(() => {
+                    res.render("viewprofile", {
+                      userpath: decodeURIComponent(req.cookies.userimg),
+                      path: imgpath,
+                      username: username,
+                      name: name,
+                      results: false,
+                      searched: false,
+                      value: false,
+                      totalFriends: accepted.length,
+                      posts: today,
+                      archives: [],
+                      postCount: postCount // Pass the postCount variable to the template
+                    });
+                  });
+                }
+              );
+            }
+          );
         }
       );
     }
   );
 });
-
 
 app.post("/profile/:username", (req, res) => {
   let username = req.cookies.user;
@@ -345,6 +362,12 @@ app.post("/profile/:username", (req, res) => {
     [value + "%"],
     (err, Searchresults) => {
       if (err) throw err;
+      db.query(
+        "SELECT COUNT(*) AS postCount FROM createposts WHERE username = ?",
+        [username],
+        (err, postResults) => {
+          if (err) throw err;
+          let postCount = postResults[0].postCount;
       // Fetch friend data
       db.query(
         "SELECT accepted FROM friends WHERE username = ?",
@@ -389,9 +412,11 @@ app.post("/profile/:username", (req, res) => {
                   totalFriends: accepted.length,
                   posts: today,
                   archives: archive,
+                  postCount: postCount
                 });
               });
             });
+          });
         }
       );
     }
@@ -413,13 +438,13 @@ app.get("/createposts", (req, res) => {
         path: imgpath,
         username: username,
         value: false,
-        searched: false,
         results: false,
+        searched: false,
       });
     }
   );
 });
-
+  
 app.post("/createposts", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
@@ -482,6 +507,14 @@ app.post("/friend/:username", (req, res) => {
           [requests, username],
           (err, results) => {
             if (err) throw err;
+             db.query(
+              "INSERT INTO notifications (recipient, message) VALUES (?, ?)",
+              [friend, "You received a friend request from " + username],
+              (err, results) => {
+                if (err) throw err;
+                res.redirect("/profile/" + friend);
+              }
+            );
             res.redirect("/profile");
           }
         );
@@ -507,8 +540,10 @@ app.get("/friends", (req, res) => {
         async (err, results) => {
           if (err) throw err;
           let accepted = results[0].accepted;
+          let received = results[0].received; // Fetch received requests
           accepted = accepted.split(",");
-          let friends = await new Promise((resolve, reject) => {
+          received = received.split(","); // Split received requests
+          let acceptedFriends = await new Promise((resolve, reject) => {
             db.query(
               "SELECT username, imgpath FROM users WHERE username IN (?)",
               [accepted],
@@ -518,13 +553,38 @@ app.get("/friends", (req, res) => {
               }
             );
           });
+          let receivedRequests = await new Promise((resolve, reject) => {
+            db.query(
+              "SELECT username FROM users WHERE username IN (?)",
+              [received],
+              (err, results) => {
+                if (err) reject(err);
+                resolve(results);
+              }
+            );
+          });
           res.render("friends", {
             path: imgpath,
             username: username,
-            friends: friends,
+            acceptedFriends: acceptedFriends,
+            receivedRequests: receivedRequests, // Pass received requests to the template
           });
         }
       );
+    }
+  );
+});
+
+app.get("/notifications", (req, res) => {
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+
+  db.query(
+    "SELECT * FROM notifications WHERE recipient = ?",
+    [username],
+    (err, results) => {
+      if (err) throw err;
+      res.render("notifications", { notifications: results });
     }
   );
 });

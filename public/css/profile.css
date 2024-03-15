@@ -603,23 +603,16 @@ button:hover {
 .left-content {
     flex: 2;
     height: 100%;
-    /* Set height to fill the container */
-    /* background-size: cover; */
+    background-size: 90%;
     background-repeat: no-repeat;
-    /* Make the background image cover the container */
     background-position: center;
-    /* Center the background image */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0;
-    /* Remove padding */
+    padding: 0 20px 0 0;
 }
 
-.left-content img {
-    max-height: 100%;
-    /* Ensure the image doesn't overflow the container */
-}
+
 
 .right-content {
     flex: 1;
