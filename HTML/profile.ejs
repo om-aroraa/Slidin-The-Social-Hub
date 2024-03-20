@@ -20,7 +20,7 @@
                         </a>
                     </div>
                 </div>
-                <a href="">
+                <a href="/home">
                     <div class="icon-text">
                         <div class="">
                             <i class="fa fa-house-chimney"></i>
@@ -57,7 +57,7 @@
                 <a href="/notifications">
                     <div class="icon-text">
                         <div class=""><i class="fa fa-heart"></i></div>
-                        <div class=""><span class="span-text-nav">Notifications</span></div>
+                        <div class=""><span class="span-text-nav">notifications</span></div>
 
                     </div>
                 </a>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="">
+                <a href="/home">
                     <div class="icon-text">
                         <div class="">
                             <i class="fa fa-house-chimney"></i>
@@ -151,20 +151,20 @@
                 <% if (results) { %>
                 <% results.forEach(function(result) { %>
                 <li><div class="card">
+                    <div class="div">
                         <a href="/profile/<%= result.username %>">
-                            <div class="card_load">
-                                <img id="search-profilepics" src="<%= result.imgpath %>" alt="Profile Pic">   
-                            </div>
-                            <div class="card_load_extreme_title">
-                                <span>
-                                    <%= result.username %>
-                                </span>
-                            </div>
-                        </a>
+                        <div class="card_load">
+                            <img id="search-profilepics" src="<%= result.imgpath %>" alt="Profile Pic">
+                        </div>
+                        <div class="div1">
+                            <%= result.username %> 
+                        </div>
+                    </a>
+                    </div>
                         <div class="card_load_extreme_descripion">
-                                <form action="/friend/<%=result.username%>" method="post" enctype="multipart/form-data">
-                                    <button>Add Friend</button>
-                                </form>
+                            <form action="/friend/<%= result.username %>" method="post" enctype="multipart/form-data">
+                                <button>Add Friend</button>
+                            </form>
                         </div>
                     </div>
                 </li>

@@ -11,13 +11,15 @@ body {
 
 }
 
-.create-container {
+.home-body1 {
     display: grid;
     grid-template-columns: 15% auto;
     grid-template-rows: 100vh;
     background-color: #f5f5f5;
     overflow: hidden;
 }
+
+
 
 .search-container {
     position: fixed;
@@ -32,7 +34,6 @@ body {
 
 .sidebar-1,
 .sidebar-2 {
-    background-color: #00bfff;
     transition: transform 0.5s ease;
     /* Adjust duration and timing function */
 }
@@ -244,189 +245,140 @@ li {
 
 
 
-.create-main {
-    grid-column: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+
+
+.main-body {
+    display: grid;
+    margin: 0%;
+    padding: 0;
     background-color: #f5f5f5;
-    overflow: hidden;
+    overflow: auto;
+    grid-column: 2;
+
 }
 
-.create-box {
-    box-sizing: border-box;
-    /* min-width: 50%; */
-    width: 100%;
-    height: 100%;
-    padding: 5px;
-    background-color: #3f3f3f;
-    color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+.posts {
+    margin: 25px 0;
+    background-color: white;
+    border: 1px solid rgba(219, 219, 219, 1);
+    border-radius: 3px;
+    display: grid;
+    grid-template-rows: auto auto;
     justify-content: center;
+}
+
+.posts .post-username {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.posts .post-username .post-left {
+    display: flex;
     align-items: center;
 }
 
-.create-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin: 0;
+.posts .post-username .post-left .image {
+    margin-right: 15px;
+}
+
+.posts .post-username .post-left .image img {
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.posts .post-username .post-left .details .name {
     padding: 0;
-    border-bottom: 1px solid #e0e0e0;
+    font-weight: bold;
 }
 
-.create-header h3 {
-    margin: 0;
-    display: flex;
-    justify-content: center;
+.posts .post-username .post-left .details {
     padding: 0;
-    width: 100%;
-    font-size: 20px;
-    color: #ffffff;
 }
 
-.create-body {
+.post-content img {
     width: 100%;
-    height: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+
+.posts .post-footer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.posts .post-footer .add-comment {
+    padding: 16px;
+    border-top: 1px solid #efefef;
+    display: flex;
     align-items: center;
-    padding: 20px;
+    justify-content: space-between;
 }
 
-#create-body {
-    text-align: center;
-    /* Center align the content */
+.posts .post-footer .add-comment .com-leftside {
+    display: flex;
+    align-items: center;
 }
 
-#fileTrigger {
-    position: relative;
-    /* Position relative for proper positioning of the span */
-    display: inline-block;
-    /* Display as inline-block to only take up the necessary space */
+.posts .post-footer .add-comment .com-leftside i {
+    font-size: 22px;
+    margin-right: 15px;
 }
 
-
-
-#fileTrigger {
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-
+.posts .post-footer .add-comment .com-leftside input {
+    width: 100%;
+    outline: none;
+    border: none;
+    font-size: 14px;
 }
 
-#fileTrigger:hover {
-    background-color: #0056b3;
-    /* Change color of the span when hovering */
+.posts .post-footer-content {
+    padding: 0 16px 16px 16px;
 }
+
+.posts .post-footer-content p {
+    margin-bottom: 3px;
+}
+
+.posts .post-footer-content .name {
+    font-weight: 600;
+}
+
+.posts .post-footer-content span {
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+.posts .post-footer-content .posting-time {
+    font-size: 10px;
+    margin-top: 6px;
+}
+
+.name .location {
+    padding: 0;
+}
+
+/* dummy */
+
+
+
+
+/* For screens smaller than 1340px wide */
 
 
 
 /* ================================================= */
-.crop-container {
-    width: auto;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 60% 40%;
-    /* align at center */
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 5px;
-    position: relative;
-
-}
-
-.img-crop {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: -50px;
-    z-index: 1;
-}
-
-.img-crop img {
-    grid-column: 1;
-    height: auto;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 5px;
-    float: left;
-    border-right: #007bff 2px solid;
-    padding-right: 20px;
-    display: flex;
-    position: relative;
-    width: 100%;
-}
-
-
-
-.span-crop, .span-crop2 {
-    font-size: x-large;
-    background: #373737c0;
-
-}
-
-.options-crop {
-    display: flex;
-    justify-content: left;
-    flex-direction: column-reverse;
-    height: auto;
-    position: absolute;
-    width: max-content;
-    bottom: 0px;
-    left: 0;
-    font-size: 15px;
-    z-index: 5;
-}
 
 
 
 
-form {
-    grid-column: 2;
-    /* width: 100%; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* align-items: center; */
-    padding: 20px;
-}
 
-form input {
-    padding: 20px;
-    margin: 10px 0;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    font-size: 16px;
-}
+/* ==================================================== */
 
-.post-btn {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-}
 
-.post-btn:hover {
-    background-color: #0056b3;
-    /* Change color of the button when hovering */
-}
 
+/* ================================================================== */
+/* Responsive styles for tablets and iPads */

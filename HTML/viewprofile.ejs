@@ -19,7 +19,7 @@
                     </a></div>
 
                 </div>
-                <a href="">
+                <a href="/home">
                     <div class="icon-text">
                         <div class="">
                             <i class="fa fa-house-chimney"></i>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="">
+                <a href="/home">
                     <div class="icon-text">
                         <div class="">
                             <i class="fa fa-house-chimney"></i>
@@ -188,10 +188,6 @@
                         <div class="h2-text">
                             <h2><%= username %></h2>
                         </div>
-                        <div class="btns-profile">
-                            <button class="edit-profile-btn">Edit Profile</button>
-                            <button class="view-archieve-btn">View Archive</button>
-                        </div>
                     </div>
                     <div class="profile-item-container">
                         <div class="profile-item">
@@ -204,49 +200,49 @@
                         </div>
                     </div>
                 </div>
-                    <div class="content-1" id="content-1">
-                        <div class="grid-single">
-                            <% for (let i = posts.length-1; i >= 0; i--) { %>
-                            <img id="" class="grid-post" src="<%= posts[i].postpath %>" alt="" onclick="openPopup('<%= i %>')">
-                                <div class="popup-wrapper" id="open_popup_<%= i %>">
-                                  <div class="popup-content">
-                                    <span class="close" onclick="closePopup('<%= i %>')">&times;</span>
-                                    <div class="left-content">
-                                      <!-- Content for the left side -->
-                                      <div
-                                        class="left-content"
-                                        style="background-image: url('<%= posts[i].postpath %>')"
-                                      ></div>
-                                    </div>
-                                    <div class="right-content">
-                                      <div class="user-info">
-                                        <img
-                                          src="<%= path %>"
-                                          alt="Avatar"
-                                          class="user-avatar"
-                                        />
-                                        <span class="username"><%= username %></span>
-                                      </div>
-                                      <p class="caption">
-                                        <%= posts[i].postcaption %>
-                                      </p>
-                                      <div class="comment-section">
-                                        <i class="far fa-smile emoji-icon"></i>
-                                        <input
-                                          type="text"
-                                          class="comment-input"
-                                          placeholder="Write a comment..."
-                                        />
-                                        <button class="comment-button">
-                                          <i class="fas fa-paper-plane"></i>
-                                        </button>
-                                      </div>
-                                    </div>
+                <div class="content-1" id="content-1">
+                    <div class="grid-single">
+                        <% for (let i = posts.length-1; i >= 0; i--) { %>
+                        <img id="" class="grid-post" src="<%= posts[i].postpath %>" alt="" onclick="openPopup('<%= i %>')">
+                            <div class="popup-wrapper" id="open_popup_<%= i %>">
+                              <div class="popup-content">
+                                <span class="close" onclick="closePopup('<%= i %>')">&times;</span>
+                                <div class="left-content">
+                                  <!-- Content for the left side -->
+                                  <div
+                                    class="left-content"
+                                    style="background-image: url('<%= posts[i].postpath %>')"
+                                  ></div>
+                                </div>
+                                <div class="right-content">
+                                  <div class="user-info">
+                                    <img
+                                      src="<%= path %>"
+                                      alt="Avatar"
+                                      class="user-avatar"
+                                    />
+                                    <span class="username"><%= username %></span>
+                                  </div>
+                                  <p class="caption">
+                                    <%= posts[i].postcaption %>
+                                  </p>
+                                  <div class="comment-section">
+                                    <i class="far fa-smile emoji-icon"></i>
+                                    <input
+                                      type="text"
+                                      class="comment-input"
+                                      placeholder="Write a comment..."
+                                    />
+                                    <button class="comment-button">
+                                      <i class="fas fa-paper-plane"></i>
+                                    </button>
                                   </div>
                                 </div>
-                            <% } %>
-                        </div>
+                              </div>
+                            </div>
+                        <% } %>
                     </div>
+                </div>
             </div>
 
         </div>

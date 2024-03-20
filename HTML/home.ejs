@@ -5,19 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/notifications.css">
+    <link rel="stylesheet" href="/css/home.css">
     <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="profile-body1">
+
+    <div class="home-body1">
         <div class="sidebar-1">
             <div class="sidebar-items">
                 <div class="icon-text profile-container">
                     <div class=""><a href=""><img class="avatar" src="/imgs/vilgax.png" alt="">
-                            <div class=""><span class="span-text-nav">Slidin'</span></div>      
-                        </a></div>
-
+                            <div class=""><span class="span-text-nav">Slidin'</span></div>
+                        </a>
+                    </div>
                 </div>
                 <a href="/home">
                     <div class="icon-text">
@@ -56,7 +57,7 @@
                 <a href="/notifications">
                     <div class="icon-text">
                         <div class=""><i class="fa fa-heart"></i></div>
-                        <div class=""><span class="span-text-nav">Notifications</span></div>
+                        <div class=""><span class="span-text-nav">notifications</span></div>
 
                     </div>
                 </a>
@@ -67,12 +68,9 @@
 
                     </div>
                 </a>
-                <a href="/profile ">
+                <a href="/profile">
                     <div class="icon-text profile-container">
-                        <div id="image-container">
-                            <img id="profile-image" src="<%= userpath %>" alt="" srcset="" />
-                            <div id="crop-preview"></div>
-                        </div>
+                        <div class=""><img class="avatar" src="<%= path %>" alt=""></div>
                         <div class=""><span class="span-text-nav">Profile</span></div>
                     </div>
                 </a>
@@ -100,9 +98,11 @@
                         <div>
                             <i class="fa fa-search"></i>
                         </div>
+                        <div>
+                        </div>
                     </div>
                 </a>
-                <a href="/createposts">
+                <a href="createposts">
                     <div class="icon-text">
                         <div class=""><i class="fa fa-circle-plus"></i> </div>
                     </div>
@@ -124,19 +124,16 @@
 
                     </div>
                 </a>
-                <a href="">
+                <a href="/profile">
                     <div class="icon-text profile-container">
-                        <div id="image-container">
-                            <img id="profile-image" src="<%= userpath %>" alt="" srcset="" />
-                            <div id="crop-preview"></div>
-                        </div>
+                        <div class=""><img class="avatar" src="<%= path %>" alt=""></div>
                     </div>
                 </a>
             </div>
         </div>
         <div class="search-container" id="s-c" style="display: none;">
             <h2>Search</h2>
-            <form action="/profile/<%= username %>" method="post" enctype="multipart/form-data" id="searchForm">
+            <form action="/profile" method="post" enctype="multipart/form-data" id="searchForm">
                 <div class="search-input-container">
                     <input type="text" id="search" placeholder="&#x1F50E;&#xFE0E; Search.." name="value"
                         oninput="submitForm(event)" <% if (value){ %>
@@ -176,58 +173,45 @@
         </div>
 
         <div class="main-body">
-            <div class="body-container">
-                <div class="body-header">
-                    <h1>Notifications</h1>
-                </div>
-                <div class="body-content">
-                    <div class="notifications">
-                        <ul>
-                            <% if (notifications) { %>
-                                <% notifications.forEach(function(notification) { %>
-                                    <li>
-                                        <div class="card1">
-                                            <a href="/profile/<%= notification.username %>">
-                                                <div class="card_load1">
-                                                    <img id="search-profilepics" src="<%= notification.imgpath %>" alt="Profile Pic">
-                                                </div>
-                                                <div class="card_load_extreme_title1">
-                                                    <p>
-                                                        <%= notification.username %>
-                                                    </p>
-                                                </div>
-                                            </a>
-                                            <div class="card_load_extreme_descripion1">
-                                                <span>
-                                                    <%= notification.message %>
-                                                </span>
-                                            </div>
-                                            <div class="noti-btns">
-                                                <form action="/notifications" method="post" enctype="multipart/form-data">
-                                                    <input type="hidden" name="msg" value="<%= notification.message %>">
-                                                    <input type="hidden" name="action" value="delete">
-                                                    <button type="submit" class="delete">Delete</button>
-                                                </form>
-                                                <form action="/notifications" method="post" enctype="multipart/form-data">
-                                                    <input type="hidden" name="msg" value="<%= notification.message %>">
-                                                    <input type="hidden" name="action" value="accept">
-                                                    <button type="submit" class="accept">Accept</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <% }) %>
-                                        <% } %>
-                        </ul>
+        <% if (!posts) {%> 
+        <% } else { %> <% for (let i = posts.length - 1; i >= 0; i--) { %>
+            <div class="posts">
+                <div class="post-username">
+                    <div class="post-left">
+                        <div class="image">
+                            <img src="<%= posts[i].imgpath %>" alt="ff" width="32" height="32">
+                        </div>
+                        <div class="details">
+                            <p class="name"><%= posts[i].username %></p>
+                        </div>
+                    </div>
+                    <div class="post-right">
+                        <i class="fas fa-ellipsis-h"></i>
                     </div>
                 </div>
+                <div class="post-content">
+                    <img src="<%= posts[i].postpath %>" alt="">
+                </div>
+                <div class="post-footer">
+                    <div class="add-comment">
+                        <div class="com-leftside">
+                            <i class="far fa-comment"></i>
+                            <input type="text" placeholder="Add a Comment...">
+                        </div>
+                        <div class="com-rightside">
+                            <p>Send</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-footer-content">
+                    <p class="name"><%= posts.imgpath %><span><%= posts[i].postcaption %></span></p>
+                    <p class="posting-time">23 Hours Ago</p>
+                </div>
             </div>
+            <% } %> <% } %>
         </div>
     </div>
-
-    </div>
     <script>
-
         if (<%= searched %>) {
             toggleSidebar();
         }
@@ -266,6 +250,27 @@
             input.value = "";
             input.value = backend;
         }
+
+
+        // Function to toggle visibility of content based on clicked division
+        function toggleDivision(element) {
+            var division1 = document.getElementById('division1');
+            var division2 = document.getElementById('division2');
+            var content1 = document.getElementById('content-1');
+            var content2 = document.getElementById('content-2');
+            if (element.id === 'division1') {
+                // division1.classList.add('active');
+                // division2.classList.remove('active');
+                content1.style.display = 'flex';
+                content2.style.display = 'none';
+            } else {
+                // division1.classList.remove('active');
+                // division2.classList.add('active');
+                content1.style.display = 'none';
+                content2.style.display = 'flex';
+            }
+        }
+
 
         function openPopup(id) {
             document.getElementById("open_popup_" + id).style.display = "block";
