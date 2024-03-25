@@ -1054,8 +1054,114 @@ app.get("/home", async (req, res) => {
   }
 });
 
+app.get("/settings", async (req, res) => {
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+  let message = false;
+  let error = req.query.error;
+  if (error) {
+    message = "Existing password is incorrect!";
+  }
+  db.query(
+    "SELECT * FROM users WHERE username = ?",
+    [username],
+    (err, results) => {
+      if (err) throw err;
+      if (results.length === 0) return res.send("No user with that username");
+      let imgpath = results[0].imgpath;
+      if (!imgpath) imgpath = "/profilepics/default.png";
+      res.render("settings", {
+        path: imgpath,
+        username: username,
+        user: results[0],
+        value: false,
+        results: false,
+        searched: false,
+        message: message,
+      });
+    }
+  );
+});
+
 app.get("/logout", (req, res) => {
   res.clearCookie("user");
   res.clearCookie("userimg");
   res.redirect("/");
 });
+
+app.post("/change-fullname", (req, res) => {
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+  const { name } = req.body;
+  db.query(
+    "UPDATE users SET name = ? WHERE username = ?",
+    [name, username],
+    (err, results) => {
+      if (err) throw err;
+      // resolve the post request
+      res.redirect('/settings')
+    }
+  );
+});
+
+app.post("/change-password", (req, res) => {
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+  const { existing, newPass } = req.body;
+  db.query(
+    "SELECT * FROM users WHERE username = ?",
+    [username],
+    (err, results) => {
+      if (err) throw err;
+      if (results[0].password !== existing)
+        return res.redirect("/settings?error=true");
+      db.query(
+        "UPDATE users SET password = ? WHERE username = ?",
+        [newPass, username],
+        (err, results) => {
+          if (err) throw err;
+          res.redirect('/settings')
+        }
+      );
+    }
+  );
+});
+
+app.post("/delete-account", (req, res) => {
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+  db.query(
+    "DELETE FROM users WHERE username = ?",
+    [username],
+    (err, results) => {
+      if (err) throw err;
+      res.redirect("/logout");
+    }
+  );
+});
+
+app.post("/update-gender", (req, res) => {
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+  let { gender } = req.body;
+  db.query(
+    "UPDATE users set gender = ? where username = ?",
+    [gender, username],
+    (err, results) => {
+      if (err) throw err;
+      res.redirect('/settings')
+    })
+  })
+
+app.post("/update-bio", (req, res) => {
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+  let { bio } = req.body;
+  db.query(
+    "UPDATE users set bio = ? where username = ?",
+    [bio, username],
+    (err, results) => {
+      if (err) throw err;
+      res.redirect('/settings')
+  })
+})

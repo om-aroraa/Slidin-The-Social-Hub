@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sideebar</title>
-    <link rel="stylesheet" href="another.css">
+    <link rel="stylesheet" href="/css/settings.css">
     <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
     <div class="profile-body1">
-
+            <% if (message) { %>
+                <script>alert("<%= message %>");</script>
+            <% } %>
         <div class="sidebar-2" id="sidebar2">
             <div class="sidebar-items">
                 <a href="">
@@ -54,7 +56,7 @@
                     </div>
                 </a>
 
-                <a href="">
+                <a href="/settings">
                     <div class="icon-text">
                         <div class=""><i class="fa fa-gear"></i></div>
 
@@ -100,12 +102,12 @@
                     <!-- Section 2: Edit Username and Full Name -->
                     <div class="section section2">
                         <div class="input-group">
-                            <input type="text" id="username" name="username" value="Existing Username">
+                            <input type="text" id="username" name="username" value="<%= username %>">
                             <button id="change-username-btn">Change Username</button>
                         </div>
                         <div class="alert-text" id="alert-username"></div>
                         <div class="input-group">
-                            <input type="text" id="fullname" name="fullname" value="Existing Full Name">
+                            <input type="text" id="fullname" name="fullname" value="<%= user.name %>">
                             <button id="change-fullname-btn">Change Full Name</button>
                         </div>
                         <div class="alert-text" id="alert-fullname"></div>
@@ -114,29 +116,26 @@
                     <div class="sidebyside">
                         <!-- Gender menu -->
                         <div class="gender-menu">
-                            <h1 class="selected-gender" id="selected-gender">Gender: Male</h1>
+                            <h1 class="selected-gender" id="selected-gender">Gender: <%= user.gender %></h1>
                             <div class="gender-option">
-                                <input type="radio" id="male" name="gender" value="male" checked>
+                                <input type="radio" id="male" name="gender" value="male" <% if (user.gender == "Male") { %> checked <% } %> >
                                 <label for="male">Male</label>
                             </div>
                             <div class="gender-option">
-                                <input type="radio" id="female" name="gender" value="female">
+                                <input type="radio" id="female" name="gender" value="female" <% if (user.gender == "Female") { %> checked <% } %> >
                                 <label for="female">Female</label>
                             </div>
                             <div class="gender-option">
-                                <input type="radio" id="prefer_not_to_say" name="gender" value="Prefer not to say">
-                                <label for="prefer_not_to_say">Prefer not to say</label>
-                            </div>
-                            <div class="gender-option">
-                                <input type="text" id="custom" name="gender" placeholder="Custom">
+                                <input type="radio" id="prefer_not_to_say" name="gender" value="other" <% if (user.gender == "Other") { %> checked <% } %> >
+                                <label for="prefer_not_to_say">Other</label>
                             </div>
                         </div>
                         <div class="bio-section">
                             <h1>Change bio</h1>
-                            <textarea class="bio-textarea" placeholder="Write something about yourself..."
-                                maxlength="100"></textarea>
+                            <textarea class="bio-textarea" placeholder="Enter your bio here..."
+                                maxlength="100"><%= user.bio %></textarea>
                             <div class="char-count" id="char-count">0/100</div>
-                            <button class="bio-button">Save</button>
+                            <button class="bio-button" onclick="updateBio()">Save</button>
                         </div>
                     </div>
                 </div>
@@ -144,7 +143,7 @@
 
 
                 <div class="update-profile">
-                    <input type="submit" value="Update Profile">
+                    <button type="button" onclick="updateGender()">Update Gender</button>
                 </div>
                 </form>
             </div>
@@ -302,7 +301,7 @@
                         </div>
                         <div id="deleteAccountAlert" class="alert alert-danger">Delete Account: Are you sure you want to
                             delete your
-                            account? This action cannot be undone.</div>
+                            account? This action cannot be undone. (Click again to delete)</div>
                     </div>
                 </div>
 
@@ -388,13 +387,9 @@
         }
     </script>
 
-    <script src="script.js"></script>
-
-
     <script>
         function logout() {
-            // Add logout functionality here
-            alert("You have been logged out successfully.");
+            window.location.href = '/logout';
         }
     </script>
 
@@ -420,15 +415,79 @@
         }
 
         function modifyPassword() {
+            let existingPassword = document.getElementById("existingPassword").value;
+            let newPassword = document.getElementById("newPassword").value;
+            let confirmNewPassword = document.getElementById("confirmNewPassword").value;
+            if (newPassword !== confirmNewPassword) {
+                alert("Passwords do not match. Please try again.");
+                return;
+            }
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.enctype = "multipart/form-data";
+            form.action = '/change-password';
+            document.body.appendChild(form);
+            let input1 = document.createElement('input');
+            input1.type = 'text';
+            input1.name = 'existing';
+            input1.value = existingPassword;
+            form.appendChild(input1);
+            let input2 = document.createElement('input');
+            input2.type = 'text';
+            input2.name = 'newPass';
+            input2.value = newPassword;
+            form.appendChild(input2);
+            form.submit();
             document.getElementById("passwordChangeSuccessAlert").style.display = "block";
             setTimeout(function () {
                 document.getElementById("passwordChangeSuccessAlert").style.display = "none";
             }, 3000);
         }
 
-
+        let dels = 0
         function deleteAccount() {
-            document.getElementById("deleteAccountAlert").style.display = "block";
+            if (dels < 1) {
+                document.getElementById("deleteAccountAlert").style.display = "block";
+                dels++
+            } else {
+                let form = document.createElement('form');
+                form.method = 'POST';
+                form.enctype = "multipart/form-data";
+                form.action = '/delete-account';
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+
+        function updateGender() {
+            const selectedGenderText = document.getElementById('selected-gender');
+            let gender = selectedGenderText.innerText.split(": ")[1];
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.enctype = "multipart/form-data";
+            form.action = '/update-gender'
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'gender';
+            input.value = gender;
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function updateBio() {
+            let bio = document.querySelector(".bio-textarea").value;
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.enctype = "multipart/form-data";
+            form.action = '/update-bio';
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'bio';
+            input.value = bio;
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
         }
 
         document.querySelector(".forgot-password").addEventListener("click", function (event) {
@@ -478,18 +537,34 @@
 
 
     <script>
-        // Change Username
-        document.getElementById('change-username-btn').addEventListener('click', function () {
-            // Replace with your backend logic to update username
-            document.getElementById('alert-username').innerText = 'Username changed successfully';
-            setTimeout(function () {
-                document.getElementById('alert-username').innerText = '';
-            }, 4000);
-        });
+        // Character count for bio textarea
+        const bioTextarea = document.querySelector('.bio-textarea');
+        const charCount = document.getElementById('char-count');
 
+        bioTextarea.addEventListener('input', function () {
+            const currentLength = this.value.length;
+            charCount.textContent = `${currentLength}/100`;
+
+            // Change color based on character count
+            if (currentLength > 100) {
+                charCount.style.color = 'red';
+            } else {
+                charCount.style.color = 'rgba(0, 0, 0, 0.5)';
+            }
+        });
         // Change Full Name
         document.getElementById('change-fullname-btn').addEventListener('click', function () {
-            // Replace with your backend logic to update full name
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.enctype = "multipart/form-data";
+            form.action = '/change-fullname';
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'name';
+            input.value = document.getElementById('fullname').value;
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
             document.getElementById('alert-fullname').innerText = 'Full Name changed successfully';
             setTimeout(function () {
                 document.getElementById('alert-fullname').innerText = '';
