@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sideebar</title>
+    <link rel="stylesheet" href="another.css">
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="profile-body1">
+
+        <div class="sidebar-2" id="sidebar2">
+            <div class="sidebar-items">
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div class=""><img class="avatar" src="/imgs/vilgax.png" alt="">
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class="">
+                            <i class="fa fa-house-chimney"></i>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="icon-text" onclick="toggleSidebar()">
+                        <div>
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </a>
+                <a href="createposts">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-circle-plus"></i> </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-comment"></i> </div>
+                    </div>
+                </a>
+                <a href="/notifications">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-heart"></i></div>
+                    </div>
+                </a>
+
+                <a href="">
+                    <div class="icon-text">
+                        <div class=""><i class="fa fa-gear"></i></div>
+
+                    </div>
+                </a>
+                <a href="">
+                    <div class="icon-text profile-container">
+                        <div id="image-container">
+                            <img id="profile-image" src="<%= path %>" alt="" srcset="" />
+                            <div id="crop-preview"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="search-container" id="s-c">
+            <div class="sidebar-settings">
+                <h2>Manage Profile</h2>
+                <ul>
+                    <li id="editProfileNavItem" class="nav-item" onclick="editProfile()"><a>Edit Profile</a></li>
+                    <li id="helpNavItem" class="nav-item" onclick="help()"><a>Help</a></li>
+                    <li id="aboutUsNavItem" class="nav-item" onclick="aboutUs()"><a>About</a></li>
+                    <li id="privacySettingsNavItem" class="nav-item" onclick="privacySettings()"><a>Privacy and
+                            Settings</a></li>
+                    <li id="logOutNavItem" class="nav-item" onclick="logOut()"><a>Logout</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="profile" id="editProfile">
+                <div class="container">
+                    <h1>Edit Profile</h1>
+
+                    <!-- Section 1: Change Profile Photo -->
+                    <div class="section section1">
+                        <img class="avatar" src="person1.jpg" alt="Avatar">
+                        <label for="photo-upload" class="change-photo-btn">Change Photo</label>
+                        <input type="file" id="photo-upload" style="display: none;">
+                    </div>
+
+                    <!-- Section 2: Edit Username and Full Name -->
+                    <div class="section section2">
+                        <div class="input-group">
+                            <input type="text" id="username" name="username" value="Existing Username">
+                            <button id="change-username-btn">Change Username</button>
+                        </div>
+                        <div class="alert-text" id="alert-username"></div>
+                        <div class="input-group">
+                            <input type="text" id="fullname" name="fullname" value="Existing Full Name">
+                            <button id="change-fullname-btn">Change Full Name</button>
+                        </div>
+                        <div class="alert-text" id="alert-fullname"></div>
+                    </div>
+
+                    <div class="sidebyside">
+                        <!-- Gender menu -->
+                        <div class="gender-menu">
+                            <h1 class="selected-gender" id="selected-gender">Gender: Male</h1>
+                            <div class="gender-option">
+                                <input type="radio" id="male" name="gender" value="male" checked>
+                                <label for="male">Male</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="radio" id="female" name="gender" value="female">
+                                <label for="female">Female</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="radio" id="prefer_not_to_say" name="gender" value="Prefer not to say">
+                                <label for="prefer_not_to_say">Prefer not to say</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="text" id="custom" name="gender" placeholder="Custom">
+                            </div>
+                        </div>
+                        <div class="bio-section">
+                            <h1>Change bio</h1>
+                            <textarea class="bio-textarea" placeholder="Write something about yourself..."
+                                maxlength="100"></textarea>
+                            <div class="char-count" id="char-count">0/100</div>
+                            <button class="bio-button">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="update-profile">
+                    <input type="submit" value="Update Profile">
+                </div>
+                </form>
+            </div>
+
+
+            <div class="profile" id="help" style="display: none;">
+                <header>
+                    <h1>Welcome to the Slidin' Help Center</h1>
+                </header>
+
+                <div class="container-help">
+                    <section class="faq">
+                        <h2>FAQs (Frequently Asked Questions)</h2>
+                        <ul>
+                            <li>
+                                <h3>How do I sign up for Slidin'?</h3>
+                                <p>To sign up for Slidin', simply click on the "Sign Up" button on our homepage and
+                                    follow the
+                                    prompts to create your account. You can sign up using your email address or connect
+                                    through your
+                                    existing social media accounts.</p>
+                            </li>
+                            <li>
+                                <h3>How do I upload photos and videos?</h3>
+                                <p>Uploading photos and videos on Slidin' is easy! Navigate to your profile page, click
+                                    on the
+                                    "Upload" button, and select the photos or videos you want to share from your device.
+                                    You can add
+                                    captions, tag friends, and choose who can see your content before posting.</p>
+                            </li>
+                            <li>
+                                <h3>Can I play games on Slidin'?</h3>
+                                <p>Yes, Slidin' offers a variety of in-built games for you to enjoy with friends. Simply
+                                    navigate to
+                                    the Games section, choose a game you'd like to play, and invite your friends to join
+                                    you for
+                                    some fun!</p>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="how-to">
+                        <h2>How-to Guides</h2>
+                        <ol>
+                            <li>
+                                <h3>Creating Your Profile</h3>
+                                <p>Follow these simple steps to create your Slidin' profile:</p>
+                                <ol>
+                                    <li>Click on the "Profile" tab in the navigation menu.</li>
+                                    <li>Fill out your basic information, including your name, username, and profile
+                                        picture.</li>
+                                    <li>Customize your profile by adding a bio, interests, and other details to let
+                                        others know more
+                                        about you.</li>
+                                    <li>Click "Save" to finalize your profile.</li>
+                                </ol>
+                            </li>
+                            <li>
+                                <h3>Starting a Chat</h3>
+                                <p>Ready to start chatting with friends? Here's how:</p>
+                                <ol>
+                                    <li>Navigate to the Chat section from the homepage.</li>
+                                    <li>Click on the "New Chat" button.</li>
+                                    <li>Select the friends you want to chat with from your contacts list.</li>
+                                    <li>Type your message in the chat box and hit "Send" to start the conversation.</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </section>
+                </div>
+
+            </div>
+
+            <div class="profile" id="aboutUs" style="display: none;">
+                <div class="container-abt">
+                    <div class="box red">
+                        <h2>Join the Party!</h2>
+                        <p>Hey GenZ! Welcome to Slidin'—the coolest place to hang out online. Connect with friends,
+                            share your
+                            moments, and play games in a snap. Don't miss out on the fun. Join the party now!</p>
+                    </div>
+                    <div class="box blue">
+                        <h2>Make Moments Matter</h2>
+                        <p>Life's too short for boring social media. At Slidin', every moment counts. Share your
+                            stories, embrace
+                            spontaneity, and cherish memories that last a lifetime. Start making moments that matter
+                            today!</p>
+                    </div>
+                    <div class="box green">
+                        <h2>Experience Authentic Connections</h2>
+                        <p>Tired of fake friends and superficial conversations? Say goodbye to the noise and hello to
+                            genuine
+                            connections. Join Slidin' and connect with like-minded individuals who share your vibe.
+                            Let's keep it
+                            real!</p>
+                    </div>
+                    <div class="box yellow">
+                        <h2>Own Your Digital Space</h2>
+                        <p>Your digital footprint, your rules. With Slidin', you're in control. Share what you want,
+                            when you want,
+                            and watch it disappear. Plus, your personal archive keeps your memories safe. It's time to
+                            own your
+                            space!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile" id="privacySettings" style="display: none;">
+                <div class="pvy-container">
+                    <div class="section">
+                        <h2 class="section-title">Privacy Policy</h2>
+                        <p>Our Privacy Policy outlines how we collect, use, disclose, and safeguard your data when you
+                            use our
+                            services. By using our services, you agree to the terms outlined in our Privacy Policy.</p>
+                        <div class="btn-container">
+                            <button class="btn" onclick="showPrivacyPolicy()">View Privacy Policy</button>
+                        </div>
+                        <div id="privacyPolicyAlert" class="alert alert-success">Privacy Policy: Lorem ipsum dolor sit
+                            amet,
+                            consectetur adipiscing elit.</div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Account Settings</h2>
+                        <p>Manage your account settings here. Update your profile information, change your password, and
+                            adjust your
+                            communication preferences to tailor your experience with us.</p>
+                        <div class="btn-container">
+                            <button class="btn" onclick="togglePasswordFields()">Change Password</button>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" class="input-field" id="existingPassword"
+                                placeholder="Existing Password">
+                            <input type="password" class="input-field" id="newPassword" placeholder="New Password">
+                            <input type="password" class="input-field" id="confirmNewPassword"
+                                placeholder="Confirm New Password">
+                            <div class="btn-container">
+                                <button class="btn" onclick="modifyPassword()">Modify Password</button>
+                            </div>
+                            <a class="forgot-password" href="#">Forgot Password?</a>
+                        </div>
+                        <div id="passwordChangeSuccessAlert" class="alert alert-success">Password changed successfully.
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Delete Account</h2>
+                        <p>If you wish to delete your account and remove all your personal data from our systems, you
+                            can do so.
+                            Please note that this action is irreversible and will permanently delete your account and
+                            associated
+                            data.</p>
+                        <div class="btn-container">
+                            <button class="btn" onclick="deleteAccount()">Delete Account</button>
+                        </div>
+                        <div id="deleteAccountAlert" class="alert alert-danger">Delete Account: Are you sure you want to
+                            delete your
+                            account? This action cannot be undone.</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="profile logout-container" id="logOut" style="display: none;">
+                <h2><span class="highlight">Logout Alert</span></h2>
+                <p><span class="highlight">Are you sure you want to logout? We'll miss you!</span></p>
+                <button class="btn" onclick="logout()"><span class="highlight">Logout</span></button>
+                <p><span>You can always log back in to resume your activities.</span></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function editProfile() {
+            hideAll();
+            document.getElementById('editProfile').style.display = 'block';
+            setActiveNavItem('editProfileNavItem');
+        }
+
+        function help() {
+            hideAll();
+            document.getElementById('help').style.display = 'block';
+            setActiveNavItem('helpNavItem');
+        }
+
+        function aboutUs() {
+            hideAll();
+            document.getElementById('aboutUs').style.display = 'block';
+            setActiveNavItem('aboutUsNavItem');
+        }
+
+        function privacySettings() {
+            hideAll();
+            document.getElementById('privacySettings').style.display = 'block';
+            setActiveNavItem('privacySettingsNavItem');
+        }
+
+        function logOut() {
+            hideAll();
+            document.getElementById('logOut').style.display = 'block';
+            setActiveNavItem('logOutNavItem');
+        }
+
+        function hideAll() {
+            var profiles = document.getElementsByClassName('profile');
+            for (var i = 0; i < profiles.length; i++) {
+                profiles[i].style.display = 'none';
+            }
+        }
+
+        function setActiveNavItem(itemId) {
+            var navItems = document.getElementsByClassName('nav-item');
+            for (var j = 0; j < navItems.length; j++) {
+                navItems[j].classList.remove('active');
+            }
+            document.getElementById(itemId).classList.add('active');
+        }
+
+
+    </script>
+
+    <script>
+        function toggleSidebar() {
+            // Hide sidebar 1
+            var sidebar1 = document.querySelector('.sidebar-1');
+            if (sidebar1.style.display === 'none') {
+                sidebar1.style.display = 'block';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'none';
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'none';
+            } else {
+                sidebar1.style.display = 'none';
+                sidebar1.style.display = 'none';
+                var sc = document.getElementById('s-c');
+                sc.style.display = 'block';
+
+                // Show sidebar 2
+                var sidebar2 = document.getElementById('sidebar2');
+                sidebar2.style.display = 'block';
+            }
+        }
+    </script>
+
+    <script src="script.js"></script>
+
+
+    <script>
+        function logout() {
+            // Add logout functionality here
+            alert("You have been logged out successfully.");
+        }
+    </script>
+
+
+
+    <!-- privacy and settings -->
+    <script>
+        function showPrivacyPolicy() {
+            document.getElementById("privacyPolicyAlert").style.display = "block";
+        }
+
+        function togglePasswordFields() {
+            var inputContainer = document.querySelector(".input-container");
+            var changePasswordButton = document.getElementsByClassName("btn")[1];
+
+            if (inputContainer.style.display === "none") {
+                inputContainer.style.display = "flex";
+                changePasswordButton.textContent = "Don't Change Password";
+            } else {
+                inputContainer.style.display = "none";
+                changePasswordButton.textContent = "Change Password";
+            }
+        }
+
+        function modifyPassword() {
+            document.getElementById("passwordChangeSuccessAlert").style.display = "block";
+            setTimeout(function () {
+                document.getElementById("passwordChangeSuccessAlert").style.display = "none";
+            }, 3000);
+        }
+
+
+        function deleteAccount() {
+            document.getElementById("deleteAccountAlert").style.display = "block";
+        }
+
+        document.querySelector(".forgot-password").addEventListener("click", function (event) {
+            event.preventDefault();
+            alert("Please contact support to reset your password.");
+        });
+
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const genderOptions = document.querySelectorAll('input[name="gender"]');
+            const selectedGenderText = document.getElementById('selected-gender');
+            const initialGender = document.querySelector('input[name="gender"]:checked').value;
+
+            selectedGenderText.innerText = 'Selected gender: ' + initialGender.charAt(0).toUpperCase() + initialGender.slice(1);
+
+            genderOptions.forEach(function (option) {
+                option.addEventListener('change', function () {
+                    if (this.value === 'custom') {
+                        selectedGenderText.innerText = '';
+                    } else {
+                        selectedGenderText.innerText = 'Selected gender: ' + this.value.charAt(0).toUpperCase() + this.value.slice(1);
+                    }
+                    selectedGenderText.classList.add('active');
+                });
+            });
+
+            const customGenderInput = document.getElementById('custom');
+            customGenderInput.addEventListener('input', function () {
+                selectedGenderText.innerText = 'Selected gender: ' + this.value;
+                selectedGenderText.classList.add('active');
+
+                // Uncheck other gender options
+                genderOptions.forEach(function (option) {
+                    if (option !== customGenderInput) {
+                        option.checked = false;
+                    }
+                });
+            });
+        });
+
+
+
+    </script>
+
+
+
+    <script>
+        // Change Username
+        document.getElementById('change-username-btn').addEventListener('click', function () {
+            // Replace with your backend logic to update username
+            document.getElementById('alert-username').innerText = 'Username changed successfully';
+            setTimeout(function () {
+                document.getElementById('alert-username').innerText = '';
+            }, 4000);
+        });
+
+        // Change Full Name
+        document.getElementById('change-fullname-btn').addEventListener('click', function () {
+            // Replace with your backend logic to update full name
+            document.getElementById('alert-fullname').innerText = 'Full Name changed successfully';
+            setTimeout(function () {
+                document.getElementById('alert-fullname').innerText = '';
+            }, 4000);
+        });
+    </script>
+</body>
+
+</html>

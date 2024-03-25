@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slidin Chat</title>
+    <link rel="stylesheet" href="chats3.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    <div class="sidebar-2" id="sidebar2">
+        <div class="sidebar-items">
+            <a href="">
+                <div class="icon-text profile-container">
+                    <div class=""><img class="avatar" src="logo.jpg" alt=""></div>
+                </div>
+            </a>
+            <a href="">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-house-chimney"></i></div>
+                </div>
+            </a>
+            <a href="#">
+                <div class="icon-text" onclick="toggleSidebar()">
+                    <div><i class="fa fa-search"></i></div>
+                    <div></div>
+                </div>
+            </a>
+            <a href="createposts">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-circle-plus"></i></div>
+                </div>
+            </a>
+            <a href="">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-comment"></i></div>
+                </div>
+            </a>
+            <a href="/notifications">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-heart"></i></div>
+                </div>
+            </a>
+            <a href="">
+                <div class="icon-text">
+                    <div class=""><i class="fa fa-gear"></i></div>
+                </div>
+            </a>
+            <a href="">
+                <div class="icon-text profile-container">
+                    <div id="image-container">
+                        <img id="profile-image" src="<%= path %>" alt="" srcset="" />
+                        <div id="crop-preview"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="chat-body">
+        <div class="sidebar">
+            <h2>Chats</h2>
+            <div class="search-container">
+                <input type="text" id="search-bar-sidebar" placeholder="Search">
+            </div>
+            <div class="friends-chat">
+
+                <div class="single-chat">
+                    <div class="avatar">
+                        <img src="https://via.placeholder.com/40" alt="User Avatar">
+                    </div>
+                    <div class="friend-info">
+                        <div class="name">Friend's Name</div>
+                        <div class="recent-message">Hello! This is a sample message. </div>
+                    </div>
+                    <div class="message-time">12:34 PM</div>
+                </div>
+                <div class="single-chat">
+                    <div class="avatar">
+                        <img src="https://via.placeholder.com/40" alt="User Avatar">
+                    </div>
+                    <div class="friend-info">
+
+                        <div class="name">Friend's Name</div>
+                        <div class="recent-message">Hello! This is a sample message.</div>
+                    </div>
+                    <div class="message-time">12:34 PM</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="chat-container">
+        <header>
+        <div class="header">
+            <div class="avatar">
+                <img src="https://via.placeholder.com/40" alt="User Avatar">
+            </div>
+            <div class="sub-header">
+                <div>
+                    <p>Friend's Name</p>
+                </div>
+                <div>Online</div>
+            </div>
+        </div>
+        <div class="dropdown">
+            <i class='bx bx-dots-vertical-rounded' id="dropdownBtn"></i>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="#" id="changeWallpaper">Change Wallpaper</a>
+                <!-- Add other dropdown options here -->
+            </div>
+        </div>
+        <input type="file" id="wallpaperInput" style="display: none;">
+
+        </header>
+        <div class="message-container">
+            <div class="message sender">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/40" alt="User Avatar">
+                </div>
+                <div class="message-bubble">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, possimus nemo aliquam
+                        exercitationem nihil ad, voluptatum nisi fugiat placeat natus pariatur doloribus dicta culpa
+                        nobis alias? Iste ea enim ipsum.</p>
+                    <div class="message-info">12:35 PM</div>
+                </div>
+
+            </div>
+
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+            <div class="message receiver">
+                <div class="message-bubble">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos provident, autem distinctio
+                    tempore dolorum, quis neque nulla iste, quia error possimus dolore blanditiis. Sunt beatae culpa
+                    numquam error repellendus accusantium.
+                    <div class="message-info">12:36 PM</div>
+                </div>
+            </div>
+        </div>
+        <div class="message-input">
+            <input type="file" id="file-input" style="display: none;">
+
+            <button id="upload-button"><i class="fa-solid fa-images"></i></button>
+            <input type="text" placeholder="Type a message">
+            <button><i class='bx bx-paper-plane'></i></button>
+        </div>
+
+    </div>
+    <script>
+        document.getElementById('upload-button').addEventListener('click', function () {
+            document.getElementById('file-input').click(); // Trigger file input click event
+        });
+    </script>
+
+
+<script>
+    document.getElementById("dropdownBtn").addEventListener("click", function () {
+            document.getElementById("dropdownContent").classList.toggle("show");
+        });
+
+        document.getElementById("changeWallpaper").addEventListener("click", function () {
+            document.getElementById("wallpaperInput").click();
+        });
+
+</script>
+
+</html>
