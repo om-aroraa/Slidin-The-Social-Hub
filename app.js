@@ -15,16 +15,6 @@ const db = mysql.createConnection({
   database: "slidin",
 });
 
-// db.config.queryFormat = function (query, values) {
-//     if (!values) return query;
-//     return query.replace(/\:(\w+)/g, function (txt, key) {
-//       if (values.hasOwnProperty(key)) {
-//         return this.escape(values[key]);
-//       }
-//       return txt;
-//     }.bind(this));
-//   };
-
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   fileUpload({
@@ -445,6 +435,79 @@ app.post("/profile/:username", (req, res) => {
   );
 });
 
+app.get("/viewprofile/:username", (req, res) => {
+  let username = req.params.username;
+  if (!username) return res.redirect("/");
+  db.query(
+    "SELECT imgpath, name FROM users WHERE username = ?",
+    [username],
+    (err, results) => {
+      if (err) throw err;
+      if (results.length === 0) return res.send("No user with that username");
+      let imgpath = results[0].imgpath;
+      let name = results[0].name;
+      if (!imgpath) imgpath = "/profilepics/default.png";
+
+      // Query to count the number of posts for the user
+      db.query(
+        "SELECT COUNT(*) AS postCount FROM createposts WHERE username = ?",
+        [username],
+        (err, postResults) => {
+          if (err) throw err;
+          let postCount = postResults[0].postCount; // Extract the post count from the query result
+
+          db.query(
+            "SELECT * FROM friends WHERE username = ?",
+            [username],
+            (err, results) => {
+              if (err) throw err;
+              let accepted = "";
+              if (results.length !== 0)
+                accepted = results[0].accepted.split(",");
+              if (accepted[0] === "") accepted = [];
+
+              db.query(
+                "SELECT * FROM createposts WHERE username = ?",
+                [username],
+                (err, results) => {
+                  if (err) throw err;
+                  let result;
+                  let posts = results;
+                  let today = [];
+                  let current = new Date().getTime();
+                  new Promise((resolve, reject) => {
+                    posts.forEach((post) => {
+                      // Check if post is older than 24 hours
+                      if (current - post.timestamp < 86400000) {
+                        today.push(post);
+                      }
+                    });
+                    resolve();
+                  }).then(() => {
+                    res.render("viewprofile", {
+                      userpath: decodeURIComponent(req.cookies.userimg),
+                      path: imgpath,
+                      username: username,
+                      name: name,
+                      results: false,
+                      searched: false,
+                      value: false,
+                      totalFriends: accepted.length,
+                      posts: today,
+                      archives: [],
+                      postCount: postCount, // Pass the postCount variable to the template
+                    });
+                  });
+                }
+              );
+            }
+          );
+        }
+      );
+    }
+  );
+});
+
 app.get("/createposts", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
@@ -500,7 +563,6 @@ app.post("/friend/:username", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
   let friend_main = req.params.username; // Corrected variable name
-
   db.query(
     "SELECT * FROM friends WHERE username = ?",
     [username],
@@ -509,7 +571,6 @@ app.post("/friend/:username", (req, res) => {
         console.error("Error selecting friends:", err);
         return res.status(500).send("Internal server error");
       }
-
       // Checking if the user has any friends
       if (results.length === 0) {
         db.query(
@@ -623,6 +684,52 @@ app.post("/friend/:username", (req, res) => {
             } else {
               me.sent += "," + friend_main;
             }
+            // Check if both users have rows in the friends table
+            db.query(
+              "SELECT * FROM friends WHERE username = ?", [username],
+              (err, results) => {
+                if (err) {
+                  console.error("Error selecting friends:", err);
+                  return res.status(500).send("Internal server error");
+                }
+                console.log({ results });
+                if (results.length === 0) {
+                  db.query(
+                    "INSERT INTO friends (username, sent, recieved, accepted) VALUES (?, ?, ?, ?)",
+                    [username, me.sent, me.recieved, me.accepted],
+                    (err, results) => {
+                      if (err) {
+                        console.error("Error inserting friends:", err);
+                        return res.status(500).send("Internal server error");
+                      }
+                    }
+                  );
+                }
+              }
+            )
+
+            db.query(
+              "SELECT * FROM friends WHERE username = ?", [friend_main],
+              (err, results) => {
+                if (err) {
+                  console.error("Error selecting friends:", err);
+                  return res.status(500).send("Internal server error");
+                }
+                console.log({ results });
+                if (results.length === 0) {
+                  db.query(
+                    "INSERT INTO friends (username, sent, recieved, accepted) VALUES (?, ?, ?, ?)",
+                    [friend_main, friend.sent, friend.recieved, friend.accepted],
+                    (err, results) => {
+                      if (err) {
+                        console.error("Error inserting friends:", err);
+                        return res.status(500).send("Internal server error");
+                      }
+                    }
+                  );
+                }
+              }
+            )
 
             db.query(
               "UPDATE friends SET sent = ?, recieved = ? WHERE username = ?",
@@ -632,17 +739,16 @@ app.post("/friend/:username", (req, res) => {
                   console.error("Error executing multi-line query:", err);
                   return res.status(500).send("Internal server error");
                 }
+                console.log({ results });
                 db.query(
                   "UPDATE friends SET sent = ?, recieved = ? WHERE username = ?",
                   [friend.sent, friend.recieved, friend_main],
                   (err, results) => {
+                    console.log({ results });
                     if (err) {
                       console.error("Error executing multi-line query:", err);
                       return res.status(500).send("Internal server error");
                     }
-
-          
-                    
                   }
                 );
               }
@@ -720,19 +826,51 @@ app.get("/friends", (req, res) => {
 app.get("/notifications", (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
+  let imgpath = decodeURIComponent(req.cookies.userimg);
+  if (!imgpath) imgpath = "/profilepics/default.png";
+  //fetch the imgpath of the user
   db.query(
-    "SELECT * FROM notifications WHERE recipient = ?",
+    "SELECT imgpath FROM users WHERE username = ?",
     [username],
-    (err, notifications) => {
+    (err, results) => {
       if (err) throw err;
-      res.render("notifications", {
-        notifications: notifications,
-        userpath: decodeURIComponent(req.cookies.userimg),
-        username: username,
-        results: false,
-        searched: false,
-        value: false,
-      });
+      if (results.length === 0) return res.send("No user with that username");
+      let imgpath = results[0].imgpath;
+      if (!imgpath) imgpath = "/profilepics/default.png";
+      db.query(
+        "SELECT * FROM notifications WHERE recipient = ?",
+        [username],
+          async (err, notifications) => {
+          if (err) throw err;
+          // Fetch image path of user who sent the notification
+          notifications.forEach(async (notification) => {
+            db.query(
+              "SELECT * FROM users WHERE username = ?",
+              [notification.recipient],
+              (err, results) => {
+                if (err) throw err;
+                notification.imgpath = results[0].imgpath;
+                console.log({ notifications });
+              }
+            );
+          });
+          // wait for all the image paths to be fetched
+          await new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve();
+            }, 1000);
+          });
+          res.render("notifications", {
+            path: imgpath,
+            notifications: notifications,
+            userpath: decodeURIComponent(req.cookies.userimg),
+            username: username,
+            results: false,
+            searched: false,
+            value: false,
+          });
+        }
+      );
     }
   );
 });
@@ -859,7 +997,6 @@ app.post("/notifications", (req, res) => {
   }
 });
 
-
 app.get("/home", async (req, res) => {
   let username = req.cookies.user;
   if (!username) return res.redirect("/");
@@ -898,6 +1035,9 @@ app.get("/home", async (req, res) => {
         })
       );
     }
+
+    // Shuffle the friends array
+    friends.sort(() => 0.8 - 0.5);
 
     console.log({ sending: friends });
     res.render("home", {

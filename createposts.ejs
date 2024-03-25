@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/css/createposts.css">
+</head>
+<body>
+
+    <h1>Create Post</h1>
+
+    <form action="/createposts" method="post" enctype="multipart/form-data">
+        <!-- File input for uploading an image -->
+        <label for="post">Select Image or Video:</label>
+        <input type="file" id="post" name="post" accept="image/*, video/*" required>
+        <br>
+
+        <!-- Caption input for the post -->
+        <label for="caption">Caption:</label>
+        <textarea id="caption" name="caption" rows="4" cols="50" required></textarea>
+        <br>
+
+        <!-- Post button to submit the form -->
+        <input type="submit" value="Post">
+    </form>
+
+</body>
+</html>
