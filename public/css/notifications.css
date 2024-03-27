@@ -1,24 +1,36 @@
+:root {
+    --background-color: #FFFFFF;
+    /* ffffff - White */
+    --container-background-color: #007EA7;
+    /* 007ea7 - Blue */
+    --text-color: #00171F;
+    /* 00171f - Dark Blue */
+    --button-color: #00A8E8;
+    /* 00a8e8 - Light Blue */
+    --button-hover-color: #003459;
+    /* 003459 - Dark Blue */
+}
+
 body {
-    background-color: #f5f5f5;
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    color: #333;
     margin: 0;
     padding: 0;
     height: 100vh;
     /* Corrected typo from 100lvh to 100vh */
     overflow: hidden;
-
 }
 
 .profile-body1 {
     display: grid;
     grid-template-columns: 15% auto;
     grid-template-rows: 100vh;
-    background-color: #f5f5f5;
     overflow: hidden;
 }
 
+.icont{
+    color: var(--background-color);
+}
 
 
 .search-container {
@@ -28,13 +40,14 @@ body {
     width: 350px;
     height: 100vh;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--container-background-color);
     z-index: 2;
 }
 
 .sidebar-1,
 .sidebar-2 {
     transition: transform 0.5s ease;
+    background-color: var(--button-hover-color);
     /* Adjust duration and timing function */
 }
 
@@ -47,7 +60,7 @@ body {
     flex-direction: column;
     justify-content: left;
     align-items: left;
-    background-color: #4a4a4a;
+    background-color: var(--button-hover-color);
     width: auto;
     height: 100vh;
     position: fixed;
@@ -76,6 +89,7 @@ body {
     height: 3.8em;
     padding: 0 20px;
     border-radius: 20px;
+    color: var(--background-color);
 }
 
 .icon-text:hover {
@@ -124,8 +138,6 @@ body {
 .avatar {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
     object-fit: cover;
 }
 
@@ -322,9 +334,11 @@ li {
 
 .main-body {
     padding: 5px;
-    background-color: #f5f5f5;
+    background-color: var(--text-color);
     overflow: auto;
     grid-column: 2;
+    color: var(--background-color);
+    padding-left: 30px;
 }
 
 .body-container {

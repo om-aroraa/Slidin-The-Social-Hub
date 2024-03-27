@@ -1,3 +1,16 @@
+:root {
+    --text-color: #FFFFFF;
+    /* ffffff - White */
+    --container-background-color: #007EA7;
+    /* 007ea7 - Blue */
+    --background-color: #00171F;
+    /* 00171f - Dark Blue */
+    --button-color: #00A8E8;
+    /* 00a8e8 - Light Blue */
+    --border-color: #003459;
+    /* 003459 - Dark Blue */
+}
+
 body {
     background-color: #f5f5f5;
     font-family: 'Roboto', sans-serif;
@@ -28,13 +41,16 @@ body {
     width: 350px;
     height: 100vh;
     padding: 20px;
-    background-color: #fff;
+    background-color:var(--container-background-color);
+    color: var(--text-color);
     z-index: 2;
 }
 
 .sidebar-1,
 .sidebar-2 {
     transition: transform 0.5s ease;
+    background-color: var(--border-color);
+    color: var(--text-color);
     /* Adjust duration and timing function */
 }
 
@@ -47,7 +63,6 @@ body {
     flex-direction: column;
     justify-content: left;
     align-items: left;
-    background-color: #4a4a4a;
     width: auto;
     height: 100vh;
     position: fixed;
@@ -68,6 +83,7 @@ body {
     height: 100%;
     font-size: 25px;
     font-weight: bolder;
+    color: var(--text-color);
 }
 
 .icon-text {
@@ -76,16 +92,21 @@ body {
     height: 3.8em;
     padding: 0 20px;
     border-radius: 20px;
+    color: var(--text-color);
 }
 
 .icon-text:hover {
-    background-color: #e0e0e0;
+    background-color: var(--button-color);
     cursor: pointer;
 }
 
 .icon-text i {
     font-size: 25px;
     margin-right: 15px;
+}
+
+.icont{
+    color: var(--text-color);
 }
 
 .logo {
@@ -124,8 +145,6 @@ body {
 .avatar {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
     object-fit: cover;
 }
 
@@ -243,15 +262,51 @@ li {
     }
 }
 
+#image-container {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+}
 
+#profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+#crop-preview {
+    border: 2px solid #fff;
+    box-sizing: content-box;
+}
+
+#crop-preview::before,
+#crop-preview::after {
+    content: "";
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#crop-preview::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+}
+
+#crop-preview::after {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+}
 
 
 .main-body {
     display: grid;
     margin: 0%;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: var(--background-color);
     overflow: auto;
     grid-column: 2;
 
