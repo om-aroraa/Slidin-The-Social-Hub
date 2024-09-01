@@ -56,6 +56,7 @@ app.post("/login", (req, res) => {
       if (results[0].password !== password)
         return res.render("login", { message: "Password is incorrect!" });
       res.cookie("user", username, { maxAge: 3600000 });
+      res.cookie("fullName", results[0].name, { maxAge: 3600000 })
       res.cookie("userimg", results[0].imgpath, { maxAge: 3600000 });
       res.redirect("/profile");
     }
@@ -108,6 +109,7 @@ app.post("/signup", (req, res) => {
                   function (err) {
                     if (err) return res.status(500).send(err);
                     res.cookie("user", username, { maxAge: 3600000 });
+                    res.cookie("fullName", name, { maxAge: 3600000 });
                     res.cookie("userimg", imgpath, { maxAge: 3600000 });
                     res.redirect("/profile");
                   }
@@ -174,6 +176,7 @@ app.get("/profile", (req, res) => {
                   }).then(() => {
                     res.render("profile", {
                       userpath: decodeURIComponent(req.cookies.userimg),
+                      fullName: decodeURIComponent(req.cookies.fullName),
                       path: imgpath,
                       username: username,
                       name: name,
@@ -329,6 +332,8 @@ app.get("/profile/:username", (req, res) => {
                     });
                     resolve();
                   }).then(() => {
+                    if (!accepted.includes(username)) today = [];
+                    console.log({ accepted, posts });
                     res.render("viewprofile", {
                       userpath: decodeURIComponent(req.cookies.userimg),
                       path: imgpath,
@@ -414,6 +419,7 @@ app.post("/profile/:username", (req, res) => {
                   }).then(() => {
                     res.render("viewprofile", {
                       userpath: decodeURIComponent(req.cookies.userimg),
+                      fullName: decodeURIComponent(req.cookies.fullName),
                       path: imgpath,
                       username: username,
                       results: Searchresults,
@@ -486,6 +492,7 @@ app.get("/viewprofile/:username", (req, res) => {
                   }).then(() => {
                     res.render("viewprofile", {
                       userpath: decodeURIComponent(req.cookies.userimg),
+                      fullName: decodeURIComponent(req.cookies.fullName),
                       path: imgpath,
                       username: username,
                       name: name,
@@ -864,6 +871,7 @@ app.get("/notifications", (req, res) => {
             path: imgpath,
             notifications: notifications,
             userpath: decodeURIComponent(req.cookies.userimg),
+            fullName: decodeURIComponent(req.cookies.fullName),
             username: username,
             results: false,
             searched: false,
@@ -1024,12 +1032,10 @@ app.get("/home", async (req, res) => {
 
       await Promise.all(
         accepted.map(async (friend) => {
-          const [friendPostsResult] = await db
-            .promise()
-            .query(
-              "SELECT createposts.*, users.imgpath FROM createposts INNER JOIN users ON createposts.username = users.username WHERE createposts.username = ? AND createposts.timestamp > ?",
-              [friend, new Date().getTime() - 86400000]
-            );
+          const [friendPostsResult] = await db.promise().query(
+            "SELECT createposts.*, users.imgpath FROM createposts INNER JOIN users ON createposts.username = users.username WHERE createposts.username = ? AND createposts.timestamp > ?",
+            [friend, new Date().getTime() - 120000] // 2 min = 120000
+          );
 
           friends.push(...friendPostsResult);
         })
@@ -1151,7 +1157,7 @@ app.post("/update-gender", (req, res) => {
       if (err) throw err;
       res.redirect('/settings')
     })
-  })
+})
 
 app.post("/update-bio", (req, res) => {
   let username = req.cookies.user;
@@ -1165,3 +1171,9 @@ app.post("/update-bio", (req, res) => {
       res.redirect('/settings')
   })
 })
+
+app.get("/games", (req, res) => { 
+  let username = req.cookies.user;
+  if (!username) return res.redirect("/");
+  res.render("gamezone");
+});

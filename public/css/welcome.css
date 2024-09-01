@@ -1,14 +1,32 @@
+:root {
+  --text-color: #FFFFFF;
+  /* ffffff - White */
+  --container-background-color: #007EA7;
+  /* 007ea7 - Blue */
+  --background-color: #00171F;
+  /* 00171f - Dark Blue */
+  --button-color: #00A8E8;
+  /* 00a8e8 - Light Blue */
+  --border-color: #003459;
+  /* 003459 - Dark Blue */
+  --extra-color: #00c5cc59;
+}
+
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
 
 .slidin-container {
+  margin-top: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .everything {
@@ -16,8 +34,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  height: 100vh;
-  background-color: #131e25;
+  height: 70vh;
   color: white;
   padding-left: 40px;
   padding-right: 40px;
@@ -91,7 +108,7 @@ body {
   padding: 0 20px 0 80px;
   animation: slide 1s ease-in-out;
   z-index: 1;
-  background: #313b3d;
+  background-color:#33c5ff3f;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(100px);
   border-radius: 20px;
@@ -141,7 +158,7 @@ button {
   width: 10em;
   position: relative;
   height: 3.5em;
-  border: 5px ridge #313b3d;
+  border: 5px ridge #004351;
   outline: none;
   background-color: transparent;
   color: white;
@@ -180,7 +197,7 @@ button:hover::after {
 }
 
 button:hover {
-  box-shadow: inset 0px 0px 25px #ffffff;
+  box-shadow: inset 0px 0px 25px var(--container-background-color);
 }
 
 @media only screen and (max-width: 710px) {

@@ -1,6 +1,21 @@
+:root {
+    --text-color: #FFFFFF;
+    --text2-color: #575a5b;
+    /* ffffff - White */
+    --container-background-color: #007EA7;
+    /* 007ea7 - Blue */
+    --background-color: #00171F;
+    /* 00171f - Dark Blue */
+    --button-color: #00A8E8;
+    /* 00a8e8 - Light Blue */
+    --border-color: #003459;
+    /* 003459 - Dark Blue */
+    --extra-color: #00c5cc59;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #3a003e, #670065);
+    background: var(--background-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,12 +25,18 @@ body {
 
 }
 
+.please{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
 .form-body {
-    background-color: #ffffff2a;
+    background-color: var(--border-color);
     padding: 2rem;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 0 var(--text-color);
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
@@ -24,11 +45,11 @@ body {
         margin-bottom: 1rem;
         text-align: center;
         font: bold 1.5rem Arial, sans-serif;
-        color: #ffb6c1;
+        color: var(--text-color);
     }
 
     h1 {
-        color: #ccffcc;
+        color: var(--text-color);
         margin-bottom: 1rem;
         text-align: center;
         font: bold 1.8rem Arial, sans-serif;
@@ -40,20 +61,20 @@ body {
     }
 
     a {
-        color: #ffb6c1;
+        color: var(--container-background-color);
         text-decoration: none;
         transition: all 0.3s ease;
     }
 
     a:hover {
-        color: #ccffcc;
+        color: var(--text2-color);
     }
 
     span {
         display: block;
         text-align: center;
         margin: 1rem;
-
+        color: var(--text-color);
     }
 
 
@@ -71,7 +92,7 @@ body {
         padding: 0.5rem;
         border: 1px solid #ccc;
         border-radius: 4px;
-        background-color: #670065;
+        background-color: var(--background-color);
         color: #fff;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -80,7 +101,7 @@ body {
     }
 
     .login-btn:hover {
-        background-color: #3a003e;
+        background-color: var(--extra-color);
         transition: all 0.3s ease;
     }
 }

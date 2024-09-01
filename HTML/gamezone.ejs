@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Zone of SLidin</title>
+    <link rel="stylesheet" href="truth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/1144a62fa6.js" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+:root {
+    --background-color: #FFFFFF;
+    /* ffffff - White */
+    --container-background-color: #007EA7;
+    /* 007ea7 - Blue */
+    --text-color: #00171F;
+    /* 00171f - Dark Blue */
+    --button-color: #00A8E8;
+    /* 00a8e8 - Light Blue */
+    --button-hover-color: #003459;
+    /* 003459 - Dark Blue */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+.back {
+    position: absolute;
+    top: 2.5%;
+    left: 0;
+    z-index: 1;
+
+}
+
+button p {
+    background: var(--button-color);
+    color: var(--background-color);
+    border: none;
+    padding: .6rem .8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    border-radius: 80px;
+
+    &:hover {
+        background: var(--button-hover-color);
+        scale: 1.1;
+    }
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--container-background-color);
+    color: var(--background-color);
+    margin: 0;
+    /* position: relative; */
+    /* z-index: 2; */
+
+    h1 {
+        font-size: 1.5rem;
+        background-color: var(--container-background-color);
+    }
+}
+
+
+/* .container {
+    img {
+        width: 350px;
+        height: 350px;
+        object-fit: cover;
+    }
+} */
+
+
+
+.games {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0;
+    /* position: relative; */
+    /* z-index: 2; */
+
+    iframe {
+        width: 90vw;
+        height: 90vh;
+    }
+
+    .game {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+        background: var(--container-background-color);
+        color: var(--background-color);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease-in-out;
+        cursor: pointer;
+/* 
+        &:hover {
+            transform: scale(1.1);
+        } */
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            text-align: center;
+        }
+    }
+}
+</style>
+
+<body>
+    <button>
+        <p class="back">Go Back</p>
+        <script>
+            document.querySelector('.back').addEventListener('click', () => {
+                window.location.href = '/profile';
+            });
+        </script>
+    </button>
+
+    <header>
+        <h1>
+            Gaming Zone
+        </h1>
+    </header>
+
+
+    <div class="games">
+        <div class="game">
+            <h2>Tic-Tac-Toe</h2>
+            <iframe src="https://priyanshu1472.github.io/TIc-Tac-Toe-game/" allowtransparency="true" width="4855" height="5022"
+                frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="game">
+            <h2>Feed the Snake</h2>
+            <iframe src="https://priyanshu1472.github.io/Snake-Game/" allowtransparency="true" width="4855" height="5022"
+                frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="game">
+            <h2>Rock-Paper-Scissors</h2>
+            <iframe src="https://priyanshu1472.github.io/rock-paper-scissors-game/" allowtransparency="true" width="4855" height="5022"
+                frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="game">
+            <h2>Dino-Game</h2>
+            <iframe src="https://priyanshu1472.github.io/Dino-Game/" allowtransparency="true" width="4855" height="5022"
+                frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="game">
+            <h2>Ping Pong</h2>
+            <iframe src="https://priyanshu1472.github.io/ping-pong-game/" allowtransparency="true" width="4855" height="5022"
+                frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+    </div>
+</body>
+
+</html>

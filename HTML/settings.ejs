@@ -95,7 +95,7 @@
 
                     <!-- Section 1: Change Profile Photo -->
                     <div class="section section1">
-                        <img class="avatar" src="person1.jpg" alt="Avatar">
+                        <img class="avatar" src="<%= path %>" alt="Avatar">
                         <label for="photo-upload" class="change-photo-btn">Change Photo</label>
                         <input type="file" id="photo-upload" style="display: none;">
                     </div>
@@ -103,8 +103,7 @@
                     <!-- Section 2: Edit Username and Full Name -->
                     <div class="section section2">
                         <div class="input-group">
-                            <input type="text" id="username" name="username" value="<%= username %>">
-                            <button id="change-username-btn">Change Username</button>
+                            <input type="text" id="username" name="username" value="<%= username %>" disabled>
                         </div>
                         <div class="alert-text" id="alert-username"></div>
                         <div class="input-group">
@@ -130,6 +129,8 @@
                                 <input type="radio" id="prefer_not_to_say" name="gender" value="other" <% if (user.gender == "Other") { %> checked <% } %> >
                                 <label for="prefer_not_to_say">Other</label>
                             </div>
+                    <button class="bio-button" onclick="updateGender()">Update Gender</button>
+
                         </div>
                         <div class="bio-section">
                             <h1>Change bio</h1>
@@ -144,7 +145,6 @@
 
 
                 <div class="update-profile">
-                    <button class="bio-button" onclick="updateGender()">Update Gender</button>
                 </div>
                 </form>
             </div>
@@ -262,9 +262,7 @@
                         <div class="btn-container">
                             <button class="btn" onclick="showPrivacyPolicy()">View Privacy Policy</button>
                         </div>
-                        <div id="privacyPolicyAlert" class="alert alert-success">Privacy Policy: Lorem ipsum dolor sit
-                            amet,
-                            consectetur adipiscing elit.</div>
+                        <div id="privacyPolicyAlert" class="alert alert-success">Privacy Policy:  no Policies yet.</div>
                     </div>
 
                     <div class="section">

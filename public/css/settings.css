@@ -124,6 +124,7 @@ body {
 
 .avatar {
     width: 50px;
+    border-radius: 50%;
     height: 50px;
     object-fit: cover;
 }
@@ -223,12 +224,12 @@ body {
 .profile h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-color);
     transition: color 0.3s ease;
 }
 
 .profile:hover h1 {
-    color:var(--primary-color);
+    color: rgb(196, 196, 196);
 }
 
 .file-group {
@@ -286,6 +287,7 @@ body {
        &:hover {
             background-color: var(--container-background-color);
             color: var(--background-color);
+            transform: scale(1.05);
         }
     }
     
@@ -328,7 +330,7 @@ body {
 
 
 .btn {
-    background-color: #00ff08;
+    background-color: #0048ff;
     color: white;
     padding: 12px 24px;
     border: none;
@@ -339,12 +341,12 @@ body {
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: #002aff;
     transform: scale(1.05);
 }
 
 .highlight {
-    color: #ff4081;
+    color: #ffffff;
     font-weight: bold;
 }
 
@@ -384,7 +386,7 @@ body {
 }
 
 .btn {
-    background-color: #4CAF50;
+    background-color: var(--container-background-color);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -433,7 +435,7 @@ body {
 }
 
 .section-title {
-    color: #333;
+    color: var(--text-color);
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
@@ -468,22 +470,27 @@ body {
     padding: 20px;
     animation: floatAnimation 3s infinite alternate;
     transition: transform 0.3s ease-in-out;
+
+    h2{
+        color:#00171F;
+    }
 }
 
 .red {
     background-color: #ffcccc;
+     color:black;
 }
 
 .blue {
-    background-color: #cceeff;
+    background-color: #cceeff; color:black;
 }
 
 .green {
-    background-color: #ccffcc;
+    background-color: #ccffcc; color:black;
 }
 
 .yellow {
-    background-color: var(--secondary-color)fcc;
+    background-color: var(--container-background-color); color:black;
 }
 
 .box:hover {
@@ -526,7 +533,7 @@ header {
 
 
 section {
-    background-color: var(--secondary-color);
+    background-color: var(--border-color);
     border-radius: 10px;
     padding: 30px;
     margin-bottom: 30px;
@@ -536,7 +543,7 @@ section {
 h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: #2c3e50;
+    color: var(--text-color);
 }
 
 
@@ -562,7 +569,7 @@ h2 {
 
 /* Section styles */
 .section {
-    background-color: #f0f0f0;
+    background-color: var(--border-color);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
@@ -626,11 +633,12 @@ h2 {
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: all 0.3s ease, transform 0.3s;
 }
 
 .input-group button:hover {
     background-color: #1e6ba8;
+    transform: scale(1.05);
 }
 
 .alert-text {
